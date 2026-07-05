@@ -15,10 +15,10 @@ A modern **Peer-to-Peer Skill Exchange Platform** that empowers individuals to e
 <br>
 
 🌐 **Live Website:**  
-**https://YOUR_USERNAME.github.io/skillbridge/**
+**https://hadeedjalani.github.io/skillbridge/**
 
 💻 **Source Code:**  
-**https://github.com/YOUR_USERNAME/skillbridge**
+**https://github.com/hadeedjalani/skillbridge**
 
 </div>
 
