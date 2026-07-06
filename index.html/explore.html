@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Skill Galaxy — SkillBridge</title>
+    <meta name="description" content="Explore and filter skills inside the non-monetary SkillBridge peer-to-peer network engine.">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Color Palette */
+            --navy: #1B3A6B;
+            --teal: #0D7377;
+            --electric: #00CED1;
+            --midnight: #061228;
+            --light-bg: #F0F4F8;
+            --white: #FFFFFF;
+            --dark-text: #1C2833;
+            --muted: #717D7E;
+            --yellow: #F4D03F;
+            --green: #1E8449;
+            --red: #C0392B;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(0, 206, 209, 0.15);
+
+            /* Typography */
+            --font-display: 'Clash Display', sans-serif;
+            --font-sub: 'Sora', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Radii */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 999px;
+
+            /* Shadows & Glows */
+            --shadow-teal: 0 0 30px rgba(13, 115, 119, 0.25);
+            --shadow-electric: 0 0 40px rgba(0, 206, 209, 0.2);
+
+            /* Transitions */
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- BASE RESETS --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            color: var(--white);
+            font-family: var(--font-body);
+            background-color: var(--midnight);
+            overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #0a2246 0%, var(--midnight) 80%);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--midnight); }
+        ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.5px; }
+        p { font-family: var(--font-body); line-height: 1.5; color: rgba(255,255,255,0.7); }
+        a { text-decoration: none; color: inherit; transition: all 0.3s var(--transition-smooth); }
+        button, input, select { font-family: inherit; outline: none; border: none; background: none; }
+
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 2.5rem;
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        #custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background-color: var(--electric);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s var(--transition-smooth), height 0.15s var(--transition-smooth), background-color 0.15s var(--transition-smooth), border 0.15s var(--transition-smooth);
+        }
+        #custom-cursor.hovered {
+            width: 32px; height: 32px;
+            background-color: transparent;
+            border: 2px solid var(--electric);
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none !important; }
+        }
+
+        /* --- LIQUID GLASS BUTTONS --- */
+        .btn-liquid {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sub);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--white);
+            background: rgba(13, 115, 119, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 206, 209, 0.25);
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        .btn-liquid::before {
+            content: '';
+            position: absolute;
+            top: var(--ripple-y, 50%); left: var(--ripple-x, 50%);
+            width: 0; height: 0;
+            background: rgba(0, 206, 209, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            pointer-events: none;
+        }
+        .btn-liquid:hover {
+            transform: translateY(-2px);
+            background: rgba(13, 115, 119, 0.3);
+            border-color: var(--electric);
+            box-shadow: 0 8px 24px rgba(0, 206, 209, 0.2);
+        }
+        .btn-liquid:hover::before { width: 200px; height: 200px; }
+        .btn-liquid:active { transform: translateY(1px); }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sub);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--white);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* --- SECTION 1: NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 80px;
+            z-index: 900;
+            background: rgba(6, 18, 40, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .logo-block {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 100%; height: 2px;
+            background-color: var(--electric);
+            transform: translateX(-50%) scaleX(0);
+            transition: transform 0.3s var(--transition-smooth);
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { transform: translateX(-50%) scaleX(1); }
+        .nav-links a.active { color: var(--white); font-weight: 600; }
+        .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+
+        .nav-auth {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        /* --- HERO SUB-HEADER --- */
+        .explore-hero {
+            padding-top: 140px;
+            padding-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+        .explore-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .explore-hero p {
+            font-size: 1rem;
+            color: var(--muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Search Bar Morphs */
+        .search-wrapper {
+            position: relative;
+            max-width: 640px;
+            margin: 0 auto 1.5rem;
+        }
+        .search-bar-glass {
+            width: 100%;
+            padding: 1.25rem 1.5rem 1.25rem 3.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            color: var(--white);
+            font-size: 1.1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .search-bar-glass:focus {
+            border-color: var(--electric);
+            box-shadow: var(--shadow-electric);
+        }
+        .search-icon-box {
+            position: absolute;
+            left: 1.25rem; top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.25rem;
+            pointer-events: none;
+            transition: transform 0.4s var(--transition-smooth);
+        }
+        .search-icon-box.typing {
+            transform: translateY(-50%) rotate(360deg);
+        }
+
+        /* Popular pills tag links */
+        .popular-tags-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .popular-tags-row span {
+            font-size: 0.8rem;
+            color: var(--muted);
+            font-family: var(--font-sub);
+        }
+        .tag-pill-btn {
+            padding: 0.4rem 1rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: var(--radius-pill);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+            font-family: var(--font-sub);
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        .tag-pill-btn:hover, .tag-pill-btn.active {
+            border-color: var(--electric);
+            background: rgba(13, 115, 119, 0.15);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        /* --- EXPLORE SPLIT GRID WORKSPACE --- */
+        .explore-grid-workspace {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 2.5rem;
+            align-items: start;
+            padding-bottom: 5rem;
+        }
+
+        /* --- FILTERS SIDEBAR --- */
+        .filters-sidebar {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: sticky;
+            top: 100px;
+        }
+        .filter-group-title {
+            font-family: var(--font-sub);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--white);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .filter-count-badge {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            background: rgba(0, 206, 209, 0.2);
+            color: var(--electric);
+            padding: 0.15rem 0.5rem;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+        }
+
+        /* Checkboxes Custom */
+        .custom-checkbox-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        .checkbox-label input { display: none; }
+        .checkbox-box-mock {
+            width: 18px; height: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-sm);
+            position: relative;
+            transition: all 0.3s;
+        }
+        .checkbox-label input:checked + .checkbox-box-mock {
+            background: var(--teal);
+            border-color: var(--electric);
+        }
+        .checkbox-label input:checked + .checkbox-box-mock::after {
+            content: '✓';
+            position: absolute;
+            font-size: 0.7rem; color: var(--white);
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* Toggle chips combo */
+        .toggle-chips-row {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .chip-toggle-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: var(--radius-sm);
+            text-align: center; font-size: 0.8rem;
+            color: rgba(255,255,255,0.7); cursor: pointer;
+            transition: all 0.3s;
+        }
+        .chip-toggle-btn.active {
+            border-color: var(--electric);
+            background: rgba(0, 206, 209, 0.1);
+            color: var(--white);
+        }
+
+        /* Grid days structure */
+        .days-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+        .day-toggle-node {
+            padding: 0.4rem 0;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius-sm);
+            text-align: center; font-family: var(--font-mono);
+            font-size: 0.75rem; cursor: pointer; color: rgba(255,255,255,0.6);
+            transition: all 0.3s;
+        }
+        .day-toggle-node.active {
+            background: var(--teal);
+            border-color: var(--electric);
+            color: var(--white);
+        }
+
+        /* Rating Stars filter elements */
+        .star-rating-filter-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .star-row-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        .star-row-item .stars-gold {
+            color: var(--yellow);
+            letter-spacing: 2px;
+        }
+        .star-row-item:hover, .star-row-item.active {
+            color: var(--white);
+        }
+
+        /* --- SKILL CARDS GRID --- */
+        .grid-cards-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        .cards-masonry-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-auto-rows: minmax(260px, auto);
+            gap: 1.5rem;
+        }
+
+        /* Skill Card Component structural setup */
+        .skill-galaxy-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            transition: border-color 0.4s var(--transition-smooth), transform 0.1s ease, opacity 0.4s ease, scale 0.4s ease;
+        }
+        .skill-galaxy-card-glare {
+            position: absolute;
+            top:0; left:0; width:100%; height:100%;
+            background: radial-gradient(circle at var(--gx, 50%) var(--gy, 50%), rgba(255,255,255,0.04) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .skill-card-top {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transform: translateZ(20px);
+        }
+        .skill-card-category-indicator {
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .category-dot-icon {
+            width: 10px; height: 10px; border-radius: 50%;
+        }
+        .category-lbl-text {
+            font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); text-transform: uppercase;
+        }
+        .skill-galaxy-card h3 {
+            font-size: 1.25rem; font-family: var(--font-display); color: var(--white); line-height: 1.3;
+        }
+        .skill-card-network-stats {
+            display: flex; gap: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.6);
+        }
+        .skill-card-network-stats strong { color: var(--electric); font-family: var(--font-mono); }
+
+        /* Avatars stack layout metric details */
+        .avatar-pile-stack {
+            display: flex; align-items: center; margin-top: 0.5rem;
+        }
+        .stacked-avatar-circle {
+            width: 24px; height: 24px; border-radius: 50%;
+            border: 2px solid var(--midnight);
+            margin-right: -8px;
+            background: var(--navy);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 0.6rem; font-family: var(--font-sub); font-weight: bold;
+        }
+
+        .skill-card-bottom {
+            display: flex; flex-direction: column; gap: 1rem;
+            transform: translateZ(10px);
+        }
+        .subtopics-tags-block {
+            display: flex; flex-wrap: wrap; gap: 0.4rem;
+        }
+        .mini-subtopic-tag {
+            font-size: 0.7rem; padding: 0.2rem 0.5rem;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius-sm); color: rgba(255,255,255,0.6);
+        }
+
+        /* Slide up explore link */
+        .explore-slide-btn {
+            width: 100%; padding: 0.6rem;
+            background: rgba(13, 115, 119, 0.2);
+            border: 1px solid rgba(0, 206, 209, 0.3);
+            border-radius: var(--radius-md);
+            color: var(--electric); font-family: var(--font-sub); font-size: 0.8rem; font-weight: 600;
+            text-align: center; cursor: pointer;
+            transform: translateY(40px); opacity: 0;
+            transition: transform 0.3s var(--transition-smooth), opacity 0.3s;
+        }
+        .skill-galaxy-card:hover .explore-slide-btn {
+            transform: translateY(0); opacity: 1;
+        }
+        .skill-galaxy-card:hover {
+            border-color: rgba(0, 206, 209, 0.4);
+        }
+
+        /* Empty state block container */
+        .empty-galaxy-state {
+            display: none;
+            text-align: center;
+            padding: 5rem 2rem;
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.04);
+            border-radius: var(--radius-lg);
+        }
+        .empty-galaxy-icon {
+            font-size: 3rem; color: var(--teal);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            animation: emptyPulse 2s infinite alternate;
+        }
+        @keyframes emptyPulse { 0% { transform: scale(1); opacity:0.6; } 100% { transform: scale(1.1); opacity:1; } }
+
+        /* --- INDIVIDUAL SKILL PROFILE SLIDING PANEL DRAWER --- */
+        .profile-panel-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(6, 18, 40, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .profile-panel-overlay.active { display: block; opacity: 1; }
+
+        .profile-panel-drawer {
+            position: fixed;
+            top: 0; right: -100%; bottom: 0;
+            width: 100%; max-width: 580px;
+            background: rgba(6, 18, 40, 0.95);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-left: 1px solid var(--glass-border);
+            z-index: 2010;
+            padding: 3rem 2.5rem;
+            display: flex; flex-direction: column; gap: 2rem;
+            overflow-y: auto;
+            transition: right 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -20px 0 50px rgba(0,0,0,0.5);
+        }
+        .profile-panel-overlay.active .profile-panel-drawer {
+            right: 0;
+        }
+        .drawer-close-node {
+            align-self: flex-start; cursor: pointer; color: var(--muted); font-size: 1.2rem;
+        }
+        .drawer-hero-block {
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        .drawer-hero-icon-box {
+            width: 54px; height: 54px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .drawer-hero-block h2 { font-size: 2.25rem; font-family: var(--font-display); }
+
+        .drawer-stats-row {
+            display: flex; gap: 2rem; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 1rem 0;
+        }
+        .drawer-stat-item { display: flex; flex-direction: column; gap: 0.25rem; }
+        .drawer-stat-val { font-family: var(--font-mono); font-size: 1.1rem; color: var(--electric); font-weight: bold; }
+        .drawer-stat-lbl { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
+
+        .bullet-learn-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .bullet-learn-list li { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; color: rgba(255,255,255,0.85); }
+        .bullet-check-icon { color: var(--electric); font-weight: bold; }
+
+        /* Horizontal road trajectory roadmap components */
+        .roadmap-track-container {
+            position: relative; padding: 2rem 0; margin: 1rem 0;
+        }
+        .roadmap-svg-wire {
+            position: absolute; top: 50%; left: 0; width: 100%; height: 4px;
+            transform: translateY(-50%); pointer-events: none;
+        }
+        .roadmap-svg-wire line {
+            stroke: rgba(255,255,255,0.05); stroke-width: 4; stroke-linecap: round;
+        }
+        .roadmap-svg-wire line.filled-path {
+            stroke: var(--teal); stroke-dasharray: 500; stroke-dashoffset: 500;
+            transition: stroke-dashoffset 1.5s var(--transition-smooth);
+        }
+        .roadmap-nodes-flex {
+            display: flex; justify-content: space-between; position: relative; z-index: 5;
+        }
+        .roadmap-node-point {
+            display: flex; flex-direction: column; align-items: center; gap: 0.5rem; position: relative;
+        }
+        .roadmap-circle {
+            width: 16px; height: 16px; border-radius: 50%; background: var(--midnight); border: 2px solid rgba(255,255,255,0.2);
+            transition: all 0.5s;
+        }
+        .roadmap-node-point.active .roadmap-circle {
+            border-color: var(--electric); background: var(--teal); box-shadow: 0 0 10px var(--electric);
+        }
+        .roadmap-lbl { font-family: var(--font-sub); font-size: 0.75rem; color: var(--muted); }
+        .roadmap-node-point.active .roadmap-lbl { color: var(--white); }
+
+        .drawer-ctas-block { display: flex; gap: 1.5rem; margin-top: 1rem; }
+
+        /* Mini Activity Feed stream elements */
+        .recent-activity-stream { display: flex; flex-direction: column; gap: 0.75rem; }
+        .activity-stream-row {
+            padding: 0.65rem 1rem; background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03);
+            border-radius: var(--radius-md); display: flex; justify-content: space-between; font-size: 0.85rem;
+        }
+
+        /* --- MOBILE LAYOUT COLLAPSIBLE BREAKPOINTS --- */
+        @media (max-width: 1024px) {
+            .explore-grid-workspace { grid-template-columns: 1fr; }
+            .filters-sidebar { position: static; width: 100%; }
+            .explore-hero h1 { font-size: 2.25rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo-block" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <svg width="36" height="36" viewBox="0 0 100 100" fill="none" style="margin-right: 10px;">
+                    <path d="M25,75 C25,50 45,55 50,55" stroke="#00CED1" stroke-width="11" stroke-linecap="round" />
+                    <path d="M75,75 C75,50 55,55 50,55" stroke="#1B3A6B" stroke-width="11" stroke-linecap="round" />
+                    <path d="M25,75 C35,60 65,60 75,75" stroke="var(--teal)" stroke-width="5" stroke-linecap="round" fill="none" />
+                    <circle cx="25" cy="32" r="8" fill="#1B3A6B" /><circle cx="75" cy="32" r="8" fill="#00CED1" />
+                </svg>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; line-height: 1;"><span style="color: #ffffff;">Skill</span><span style="color: #00CED1;">Bridge</span></span>
+                    <span style="font-family: var(--font-sub); font-size: 7px; letter-spacing: 1px; color: var(--muted); margin-top: 2px; font-weight: bold;">BY THE PEOPLE, FOR THE PEOPLE</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#" class="active">Explore Skills</a>
+                <a href="#">Find Mentors</a>
+                <a href="#">Community</a>
+                <a href="#">Resources</a>
+            </div>
+            <div class="nav-auth">
+                <button class="btn-ghost" style="padding: 0.5rem 1rem;">Log In</button>
+                <button class="btn-liquid">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="explore-hero">
+        <div class="container">
+            <h1>Explore the Skill Galaxy</h1>
+            <p>Find exactly what you want to learn — or teach securely with zero transactional fees</p>
+            
+            <div class="search-wrapper">
+                <div class="search-icon-box" id="search-vector-icon">🔍</div>
+                <input type="text" class="search-bar-glass" id="galaxy-search-field" placeholder="Search any skill — design, coding, finance..." aria-label="Search Skills Input">
+            </div>
+
+            <div class="popular-tags-row">
+                <span>Popular Clusters:</span>
+                <button class="tag-pill-btn" onclick="autoFillSearchKeyword('Web Development')">Web Dev</button>
+                <button class="tag-pill-btn" onclick="autoFillSearchKeyword('UI/UX Design')">UI/UX</button>
+                <button class="tag-pill-btn" onclick="autoFillSearchKeyword('Digital Marketing')">Marketing</button>
+                <button class="tag-pill-btn" onclick="autoFillSearchKeyword('Machine Learning')">AI/ML</button>
+                <button class="tag-pill-btn" onclick="autoFillSearchKeyword('Finance & Investing')">Finance</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container explore-grid-workspace">
+        
+        <aside class="filters-sidebar">
+            <div>
+                <div class="filter-group-title">
+                    <span>Active Filters</span>
+                    <span class="filter-count-badge" id="active-filter-pill-counter">0 Filters Active</span>
+                </div>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.05);">
+
+            <div>
+                <div class="filter-group-title">Track Category</div>
+                <div class="custom-checkbox-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="filter-checkbox-input" value="tech" onchange="runFilterPipeline()">
+                        <div class="checkbox-box-mock"></div><span>Technology / Code</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="filter-checkbox-input" value="creative" onchange="runFilterPipeline()">
+                        <div class="checkbox-box-mock"></div><span>Creative Arts / Design</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="filter-checkbox-input" value="business" onchange="runFilterPipeline()">
+                        <div class="checkbox-box-mock"></div><span>Business / Growth</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <div class="filter-group-title">Target Skill Level</div>
+                <div class="custom-checkbox-row">
+                    <label class="checkbox-label">
+                        <input type="radio" name="level-filter" class="filter-radio-input" value="all" checked onchange="runFilterPipeline()">
+                        <div class="checkbox-box-mock" style="border-radius:50%;"></div><span>All Levels Matrix</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="level-filter" class="filter-radio-input" value="beginner" onchange="runFilterPipeline()">
+                        <div class="checkbox-box-mock" style="border-radius:50%;"></div><span>Beginner Track</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="radio" name="level-filter" class="filter-radio-input" value="advanced" onchange="runFilterPipeline()">
+                        <div class="checkbox-box-mock" style="border-radius:50%;"></div><span>Advanced Expert Nodes</span>
+                    </label>
+                </div>
+            </div>
+
+            <div>
+                <div class="filter-group-title">Session Pipeline Mode</div>
+                <div class="toggle-chips-row">
+                    <div class="chip-toggle-btn active" onclick="toggleModeChip(this, 'both')">Both</div>
+                    <div class="chip-toggle-btn" onclick="toggleModeChip(this, 'online')">Online</div>
+                    <div class="chip-toggle-btn" onclick="toggleModeChip(this, 'inperson')">In-Person</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="filter-group-title">Weekly Availability</div>
+                <div class="days-grid-layout">
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">MON</div>
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">TUE</div>
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">WED</div>
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">THU</div>
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">FRI</div>
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">SAT</div>
+                    <div class="day-toggle-node" onclick="this.classList.toggle('active'); runFilterPipeline();">SUN</div>
+                </div>
+            </div>
+
+            <div>
+                <div class="filter-group-title">Minimum Quality Threshold</div>
+                <div class="star-rating-filter-stack">
+                    <div class="star-row-item active" onclick="setStarFilter(this, 0)"><span class="stars-gold">★★★★★</span><span>Show All Nodes</span></div>
+                    <div class="star-row-item" onclick="setStarFilter(this, 4)"><span class="stars-gold">★★★★☆</span><span>4.0+ Vetted Score</span></div>
+                    <div class="star-row-item" onclick="setStarFilter(this, 4.5)"><span class="stars-gold">★★★★★</span><span>4.5+ Elite Nodes</span></div>
+                </div>
+            </div>
+
+            <button class="btn-liquid" style="width:100%;" onclick="runFilterPipeline(true)">Apply Optimized Filter System</button>
+        </aside>
+
+        <section class="grid-cards-column">
+            
+            <div class="cards-masonry-grid" id="galaxy-cards-grid-root">
+                </div>
+
+            <div class="empty-galaxy-state" id="galaxy-empty-state-card">
+                <div class="empty-galaxy-icon">🛰️</div>
+                <h3 style="font-family: var(--font-display); font-size: 1.5rem; color: var(--white); margin-bottom: 0.5rem;">No Cluster Matches Discovered</h3>
+                <p style="color: var(--muted); max-width: 400px; margin: 0 auto;">Adjust your query inputs or parameters to discover adjacent educational exchange vectors inside the pipeline maps.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <div class="profile-panel-overlay" id="drawer-overlay-wrapper" onclick="closeProfileDrawerBlock()">
+        <div class="profile-panel-drawer" id="profile-panel-drawer-container" onclick="event.stopPropagation()">
+            <div class="drawer-close-node" onclick="closeProfileDrawerBlock()">✕ Close System Window</div>
+            
+            <div class="drawer-hero-block">
+                <div class="drawer-hero-icon-box" id="drawer-hero-icon-box" style="background: rgba(0,206,209,0.15); color: var(--electric);">🧠</div>
+                <h2 id="drawer-skill-name-heading">Skill Core Title</h2>
+            </div>
+
+            <div class="drawer-stats-row">
+                <div class="drawer-stat-item"><span class="drawer-stat-val" id="drawer-stat-mentors">74</span><span class="drawer-stat-lbl">Active Mentors</span></div>
+                <div class="drawer-stat-item"><span class="drawer-stat-val" id="drawer-stat-learners">2.8K</span><span class="drawer-stat-lbl">Active Learners</span></div>
+                <div class="drawer-stat-item"><span class="drawer-stat-val" style="color: var(--yellow);" id="drawer-stat-rating">★ 4.8</span><span class="drawer-stat-lbl">Quality Index</span></div>
+            </div>
+
+            <div>
+                <h4 style="font-family: var(--font-sub); font-size: 1rem; color: var(--white); margin-bottom: 1rem;">Instructional Curricula Blocks</h4>
+                <ul class="bullet-learn-list" id="drawer-bullets-stack-box">
+                    </ul>
+            </div>
+
+            <div>
+                <h4 style="font-family: var(--font-sub); font-size: 1rem; color: var(--white); margin-bottom: 0.5rem;">System Roadmap Strategy Trajectory</h4>
+                <div class="roadmap-track-container">
+                    <svg class="roadmap-svg-wire"><line x1="0" y1="2" x2="100%" y2="2" id="roadmap-base-svg-wire-line"></line><line x1="0" y1="2" x2="0" y2="2" class="filled-path" id="roadmap-filled-svg-wire-line"></line></svg>
+                    <div class="roadmap-nodes-flex">
+                        <div class="roadmap-node-point active"><div class="roadmap-circle"></div><span class="roadmap-lbl">Beginner</span></div>
+                        <div class="roadmap-node-point active"><div class="roadmap-circle"></div><span class="roadmap-lbl">Intermediate</span></div>
+                        <div class="roadmap-node-point" id="roadmap-node-adv"><div class="roadmap-circle"></div><span class="roadmap-lbl">Advanced</span></div>
+                        <div class="roadmap-node-point" id="roadmap-node-exp"><div class="roadmap-circle"></div><span class="roadmap-lbl">Expert</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drawer-ctas-block">
+                <button class="btn-liquid" style="flex:1;" onclick="alert('Access request compiled into queue parameters safely.')">Start Learning Matrix</button>
+                <button class="btn-ghost" style="flex:1;" onclick="alert('Mentor candidate registration workflow initialized.')">Become an Instructional Node</button>
+            </div>
+
+            <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.05);">
+
+            <div>
+                <h4 style="font-family: var(--font-sub); font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">Live Network Activity Feed</h4>
+                <div class="recent-activity-stream" id="drawer-live-activity-stream-box">
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const IMMUTABLE_GALAXY_SKILLS_DATA = [
+            { id: 1, name: "Web Development", category: "tech", rating: 4.9, mentors: 142, learners: "5.2K", icon: "💻", glow: "rgba(0, 206, 209, 0.2)", tags: ["Next.js", "TypeScript", "Prisma ORM", "Tailwind CSS"], level: "beginner" },
+            { id: 2, name: "UI/UX Design", category: "creative", rating: 4.8, mentors: 98, learners: "3.4K", icon: "🎨", glow: "rgba(13, 115, 119, 0.2)", tags: ["Figma", "Design Systems", "Wireframing", "HCI"], level: "beginner" },
+            { id: 3, name: "Graphic Design", category: "creative", rating: 4.6, mentors: 74, learners: "2.1K", icon: "✒️", glow: "rgba(255,255,255,0.05)", tags: ["Photoshop", "Illustrator", "Vector", "Branding"], level: "beginner" },
+            { id: 4, name: "Video Editing", category: "creative", rating: 4.7, mentors: 60, learners: "1.9K", icon: "🎬", glow: "rgba(0, 206, 209, 0.1)", tags: ["Premiere Pro", "DaVinci Resolve", "Color Grading"], level: "intermediate" },
+            { id: 5, name: "Motion Graphics", category: "creative", rating: 4.8, mentors: 45, learners: "1.2K", icon: "🍿", glow: "rgba(13, 115, 119, 0.2)", tags: ["After Effects", "Keyframing", "Lottie Codes"], level: "advanced" },
+            { id: 6, name: "Public Speaking", category: "business", rating: 4.9, mentors: 82, learners: "2.8K", icon: "🎙️", glow: "rgba(244, 208, 63, 0.15)", tags: ["Keynote Pitching", "Voice Modulation", "Presence"], level: "beginner" },
+            { id: 7, name: "Photography", category: "creative", rating: 4.5, mentors: 54, learners: "1.6K", icon: "📷", glow: "rgba(255,255,255,0.03)", tags: ["Cinematic Lighting", "ISO Architecture", "Lenses"], level: "beginner" },
+            { id: 8, name: "Digital Marketing", category: "business", rating: 4.7, mentors: 110, learners: "4.1K", icon: "📈", glow: "rgba(13, 115, 119, 0.1)", tags: ["Funnel Scaling", "Paid Ads", "Conversion Loops"], level: "intermediate" },
+            { id: 9, name: "SEO Optimization", category: "business", rating: 4.6, mentors: 68, learners: "2.3K", icon: "🔍", glow: "rgba(0, 206, 209, 0.1)", tags: ["Core Web Vitals", "Meta Layouts", "Backlinks"], level: "advanced" },
+            { id: 10, name: "Content Writing", category: "creative", rating: 4.7, mentors: 92, learners: "3.1K", icon: "✍️", glow: "rgba(255,255,255,0.03)", tags: ["Copywriting", "Storytelling", "Technical Docs"], level: "beginner" },
+            { id: 11, name: "Python Coding", category: "tech", rating: 4.9, mentors: 165, learners: "6.8K", icon: "🐍", glow: "rgba(0, 206, 209, 0.2)", tags: ["Django APIs", "Scripts", "Automation Pipes"], level: "beginner" },
+            { id: 12, name: "Machine Learning", category: "tech", rating: 4.9, mentors: 88, learners: "4.2K", icon: "🤖", glow: "rgba(13, 115, 119, 0.25)", tags: ["cuML Acceleration", "CUDA GPU", "Neural Networks"], level: "advanced" },
+            { id: 13, name: "Data Analysis", category: "tech", rating: 4.8, mentors: 104, learners: "3.9K", icon: "📊", glow: "rgba(0, 206, 209, 0.15)", tags: ["Pandas Dataframes", "Tableau Matrix", "SQL"], level: "intermediate" },
+            { id: 14, name: "Finance & Investing", category: "business", rating: 4.8, mentors: 76, learners: "3.5K", icon: "🪙", glow: "rgba(244, 208, 63, 0.2)", tags: ["Risk Valuation", "Portfolio Cycles", "Cryptos"], level: "intermediate" },
+            { id: 15, name: "Languages (Ar/En/Ur)", category: "creative", rating: 4.7, mentors: 120, learners: "5.0K", icon: "🗣️", glow: "rgba(255,255,255,0.04)", tags: ["Mandarin Track", "Arabic Syntax", "Urdu Poetry"], level: "beginner" },
+            { id: 16, name: "Music Production", category: "creative", rating: 4.6, mentors: 38, learners: "1.1K", icon: "🎵", glow: "rgba(13, 115, 119, 0.15)", tags: ["Ableton Nodes", "Mixing Loops", "MIDI Tracking"], level: "advanced" },
+            { id: 17, name: "Social Media Strategy", category: "business", rating: 4.5, mentors: 84, learners: "2.9K", icon: "📱", glow: "rgba(255,255,255,0.04)", tags: ["Viral Coefficients", "Analytics Logs", "Hooks"], level: "beginner" },
+            { id: 18, name: "Project Management", category: "business", rating: 4.8, mentors: 90, learners: "3.2K", icon: "📅", glow: "rgba(0, 206, 209, 0.1)", tags: ["Agile Sprints", "Jira Automations", "Scrum Node"], level: "intermediate" },
+            { id: 19, name: "Entrepreneurship", category: "business", rating: 4.9, mentors: 70, learners: "2.6K", icon: "🚀", glow: "rgba(244, 208, 63, 0.25)", tags: ["Bootstrapping", "Equity Architecture", "MVP"], level: "advanced" },
+            { id: 20, name: "Personal Branding", category: "business", rating: 4.7, mentors: 64, learners: "1.8K", icon: "🌟", glow: "rgba(13, 115, 119, 0.1)", tags: ["LinkedIn Strategies", "Authority Positioning"], level: "intermediate" }
+        ];
+
+        let SELECTED_MIN_RATING_CRITERIA = 0;
+        let SELECTED_SESSION_MODE = 'both';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCursorTrackingSystem();
+            renderSkillGalaxyMatrixCards(IMMUTABLE_GALAXY_SKILLS_DATA);
+            initializeSearchAnimationVectorHooks();
+            initializeLiquidRipplePhysicsEffects();
+        });
+
+        /* --- IMMUTABLE MOUSE CURSOR GLOW CONFIG --- */
+        function initializeCursorTrackingSystem() {
+            const cursor = document.getElementById('custom-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            refreshCursorBindings();
+        }
+
+        function refreshCursorBindings() {
+            const cursor = document.getElementById('custom-cursor');
+            document.querySelectorAll('a, button, select, input, .checkbox-label, .chip-toggle-btn, .day-toggle-node, .star-row-item, .tag-pill-btn, .skill-galaxy-card').forEach(elem => {
+                elem.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                elem.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        }
+
+        /* --- LIQUID GLASS RIPPLE ENGINE PHYSICS --- */
+        function initializeLiquidRipplePhysicsEffects() {
+            document.querySelectorAll('.btn-liquid').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    btn.style.setProperty('--ripple-x', `${x}%`);
+                    btn.style.setProperty('--ripple-y', `${y}%`);
+                });
+            });
+        }
+
+        /* --- CARDS ARCHITECTURE RENDERING LOGIC SYSTEM --- */
+        function renderSkillGalaxyMatrixCards(dataSet) {
+            const gridRoot = document.getElementById('galaxy-cards-grid-root');
+            const emptyState = document.getElementById('galaxy-empty-state-card');
+            gridRoot.innerHTML = '';
+
+            if (dataSet.length === 0) {
+                emptyState.style.display = 'block';
+                return;
+            }
+            emptyState.style.display = 'none';
+
+            dataSet.forEach(skill => {
+                const card = document.createElement('div');
+                card.className = 'skill-galaxy-card';
+                card.style.boxShadow = `0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.05)`;
+                card.setAttribute('data-category', skill.category);
+                card.setAttribute('data-rating', skill.rating);
+                card.setAttribute('data-level', skill.level);
+
+                // Build sub-topic mini pill vectors
+                let tagsMarkup = '';
+                skill.tags.forEach(t => { tagsMarkup += `<span class="mini-subtopic-tag">${t}</span>`; });
+
+                card.innerHTML = `
+                    <div class="skill-galaxy-card-glare"></div>
+                    <div class="skill-card-top">
+                        <div class="skill-card-category-indicator">
+                            <div class="category-dot-icon" style="background-color: ${skill.category === 'tech' ? 'var(--electric)' : skill.category === 'creative' ? 'var(--teal)' : 'var(--yellow)'}"></div>
+                            <span class="category-lbl-text">${skill.category} node</span>
+                        </div>
+                        <h3>${skill.name}</h3>
+                        <div class="skill-card-network-stats">
+                            <span><strong>${skill.mentors}</strong> Mentors</span>
+                            <span><strong>${skill.learners}</strong> Learners</span>
+                        </div>
+                        <div class="avatar-pile-stack">
+                            <div class="stacked-avatar-circle" style="background:#1B3A6B">AZ</div>
+                            <div class="stacked-avatar-circle" style="background:#0D7377">FH</div>
+                            <div class="stacked-avatar-circle" style="background:#F4D03F">UM</div>
+                            <div class="stacked-avatar-circle" style="background:rgba(255,255,255,0.05); font-size:0.5rem; color:var(--muted)">+${skill.mentors - 3}</div>
+                            <span style="font-size:0.75rem; color:var(--muted); margin-left:15px; font-family:var(--font-mono)">★ ${skill.rating}</span>
+                        </div>
+                    </div>
+                    <div class="skill-card-bottom">
+                        <div class="subtopics-tags-block">${tagsMarkup}</div>
+                        <button class="explore-slide-btn" onclick="openProfileDrawerBlock('${escape(JSON.stringify(skill))}')">Explore Skill Node →</button>
+                    </div>
+                `;
+
+                gridRoot.appendChild(card);
+                bindTiltCardPhysicsEngine(card);
+            });
+
+            refreshCursorBindings();
+        }
+
+        /* --- CARD PERSPECTIVE PHYSICS 3D TILT HANDLERS --- */
+        function bindTiltCardPhysicsEngine(card) {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const xc = rect.width / 2;
+                const yc = rect.height / 2;
+
+                const rotateX = (yc - y) / 10;
+                const rotateY = (x - xc) / 10;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                card.style.setProperty('--gx', `${(x / rect.width) * 100}%`);
+                card.style.setProperty('--gy', `${(y / rect.height) * 100}%`);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+            });
+        }
+
+        /* --- SEARCH ARCHITECTURE CRITERIA INPUT VECTORS --- */
+        function initializeSearchAnimationVectorHooks() {
+            const field = document.getElementById('galaxy-search-field');
+            const icon = document.getElementById('search-vector-icon');
+
+            field.addEventListener('input', () => {
+                icon.classList.add('typing');
+                runFilterPipeline();
+                setTimeout(() => icon.classList.remove('typing'), 400);
+            });
+        }
+
+        function autoFillSearchKeyword(keyword) {
+            document.getElementById('galaxy-search-field').value = keyword;
+            
+            // Highlight explicit active pill matrix styles
+            document.querySelectorAll('.tag-pill-btn').forEach(btn => {
+                if(btn.innerText.toLowerCase() === keyword.toLowerCase() || (keyword.includes('Web') && btn.innerText === 'Web Dev')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            runFilterPipeline();
+        }
+
+        /* --- MULTI-VARIANT COMPOSITE FILTER PIPELINE PROCESSING --- */
+        function toggleModeChip(element, value) {
+            document.querySelectorAll('.chip-toggle-btn').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+            SELECTED_SESSION_MODE = value;
+            runFilterPipeline();
+        }
+
+        function setStarFilter(element, ratingValue) {
+            document.querySelectorAll('.star-row-item').forEach(s => s.classList.remove('active'));
+            element.classList.add('active');
+            SELECTED_MIN_RATING_CRITERIA = ratingValue;
+            runFilterPipeline();
+        }
+
+        function runFilterPipeline(explicitClick = false) {
+            const searchVal = document.getElementById('galaxy-search-field').value.toLowerCase().trim();
+            
+            // Map active checkboxes category lists
+            const activeCategories = [];
+            document.querySelectorAll('.filter-checkbox-input:checked').forEach(cb => activeCategories.push(cb.value));
+
+            // Map selected target levels
+            const selectedLevelElement = document.querySelector('.filter-radio-input:checked');
+            const selectedLevel = selectedLevelElement ? selectedLevelElement.value : 'all';
+
+            let activeFiltersCount = 0;
+            if (searchVal) activeFiltersCount++;
+            if (activeCategories.length > 0) activeFiltersCount += activeCategories.length;
+            if (selectedLevel !== 'all') activeFiltersCount++;
+            if (SELECTED_SESSION_MODE !== 'both') activeFiltersCount++;
+            if (SELECTED_MIN_RATING_CRITERIA > 0) activeFiltersCount++;
+
+            // Update counter badges metrics representation
+            document.getElementById('active-filter-pill-counter').innerText = `${activeFiltersCount} Filters Running`;
+
+            // Core multi-stream pipeline evaluations arrays loops
+            const filteredArray = IMMUTABLE_GALAXY_SKILLS_DATA.filter(skill => {
+                const matchesSearch = skill.name.toLowerCase().includes(searchVal) || skill.tags.some(t => t.toLowerCase().includes(searchVal));
+                const matchesCategory = activeCategories.length === 0 || activeCategories.includes(skill.category);
+                const matchesLevel = selectedLevel === 'all' || skill.level === selectedLevel;
+                const matchesRating = skill.rating >= SELECTED_MIN_RATING_CRITERIA;
+
+                return matchesSearch && matchesCategory && matchesLevel && matchesRating;
+            });
+
+            // Fade animation orchestration lifecycle triggers
+            const gridRoot = document.getElementById('galaxy-cards-grid-root');
+            gridRoot.style.opacity = '0.3';
+            gridRoot.style.transform = 'scale(0.99)';
+            
+            setTimeout(() => {
+                renderSkillGalaxyMatrixCards(filteredArray);
+                gridRoot.style.opacity = '1';
+                gridRoot.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        /* --- PROFILE WINDOW PANEL EXPAND DRAWER ACTIONS --- */
+        function openProfileDrawerBlock(escapedSkillDataJson) {
+            const skill = JSON.parse(unescape(escapedSkillDataJson));
+            
+            document.getElementById('drawer-skill-name-heading').innerText = skill.name;
+            document.getElementById('drawer-hero-icon-box').innerText = skill.icon;
+            document.getElementById('drawer-stat-mentors').innerText = skill.mentors;
+            document.getElementById('drawer-stat-learners').innerText = skill.learners;
+            document.getElementById('drawer-stat-rating').innerText = `★ ${skill.rating}`;
+
+            // Populate bullet details paths
+            const bulletsBox = document.getElementById('drawer-bullets-stack-box');
+            bulletsBox.innerHTML = `
+                <li><span class="bullet-check-icon">✓</span> Systematic modular structural mastery architecture variables deployment.</li>
+                <li><span class="bullet-check-icon">✓</span> Comprehensive implementation techniques aligned with peer evaluation criteria profiles.</li>
+                <li><span class="bullet-check-icon">✓</span> Hands-on simulation labs mapping parameters directly onto operational node metrics.</li>
+                <li><span class="bullet-check-icon">✓</span> Live cryptographic non-monetary credit escrow trade negotiation strategies logs.</li>
+            `;
+
+            // Build active roadmap markers
+            const nodeAdv = document.getElementById('roadmap-node-adv');
+            const nodeExp = document.getElementById('roadmap-node-exp');
+            const wireLine = document.getElementById('roadmap-filled-svg-wire-line');
+
+            if(skill.level === 'advanced' || skill.id % 3 === 0) {
+                nodeAdv.classList.add('active');
+                nodeExp.classList.remove('active');
+                wireLine.style.strokeDashoffset = '180';
+            } else if (skill.level === 'expert' || skill.id === 1) {
+                nodeAdv.classList.add('active');
+                nodeExp.classList.add('active');
+                wireLine.style.strokeDashoffset = '0';
+            } else {
+                nodeAdv.classList.remove('active');
+                nodeExp.classList.remove('active');
+                wireLine.style.strokeDashoffset = '340';
+            }
+
+            // Populate live custom tracking feeds strings array
+            const streamBox = document.getElementById('drawer-live-activity-stream-box');
+            streamBox.innerHTML = `
+                <div class="activity-stream-row"><span>Alex Rahman initialized workspace tracking context</span><span style="font-family:var(--font-mono); color:var(--electric);">2m ago</span></div>
+                <div class="activity-stream-row"><span>Zainab Malik transferred +1 instruction token loop</span><span style="font-family:var(--font-mono); color:var(--muted);">14m ago</span></div>
+                <div class="activity-stream-row"><span>Asim Farooq compiled validation quiz data matrix sets</span><span style="font-family:var(--font-mono); color:var(--muted);">45m ago</span></div>
+            `;
+
+            // Activate layout overlays styles
+            const overlay = document.getElementById('drawer-overlay-wrapper');
+            overlay.style.display = 'block';
+            setTimeout(() => {
+                overlay.classList.add('active');
+            }, 10);
+        }
+
+        function closeProfileDrawerBlock() {
+            const overlay = document.getElementById('drawer-overlay-wrapper');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 400);
+        }
+    </script>
+</body>
+</html>

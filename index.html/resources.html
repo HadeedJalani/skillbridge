@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources & Plans — SkillBridge</title>
+    <meta name="description" content="Knowledge base, pricing models, and trust layers for the SkillBridge decentralized ecosystem.">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Color Palette */
+            --navy: #1B3A6B;
+            --teal: #0D7377;
+            --electric: #00CED1;
+            --midnight: #061228;
+            --light-bg: #F0F4F8;
+            --white: #FFFFFF;
+            --dark-text: #1C2833;
+            --muted: #717D7E;
+            --yellow: #F4D03F;
+            --green: #1E8449;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(0, 206, 209, 0.15);
+
+            /* Typography */
+            --font-display: 'Clash Display', sans-serif;
+            --font-sub: 'Sora', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Radii */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 999px;
+
+            /* Shadows & Glows */
+            --shadow-teal: 0 0 30px rgba(13, 115, 119, 0.25);
+            --shadow-electric: 0 0 40px rgba(0, 206, 209, 0.2);
+            --shadow-gold: 0 0 30px rgba(244, 208, 63, 0.3);
+
+            /* Transitions */
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- BASE RESETS --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            color: var(--white);
+            font-family: var(--font-body);
+            background-color: var(--midnight);
+            overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #0a2246 0%, var(--midnight) 80%);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--midnight); }
+        ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.5px; }
+        p { font-family: var(--font-body); line-height: 1.6; color: rgba(255,255,255,0.7); }
+        a { text-decoration: none; color: inherit; transition: all 0.3s var(--transition-smooth); }
+        button { font-family: inherit; outline: none; border: none; background: none; color: inherit; }
+
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        #custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background-color: var(--electric);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s var(--transition-smooth), height 0.15s var(--transition-smooth), background-color 0.15s var(--transition-smooth), border 0.15s var(--transition-smooth);
+        }
+        #custom-cursor.hovered {
+            width: 32px; height: 32px;
+            background-color: transparent;
+            border: 2px solid var(--electric);
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none !important; }
+        }
+
+        .btn-liquid {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.75rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sub);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--white);
+            background: rgba(13, 115, 119, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 206, 209, 0.25);
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        .btn-liquid::before {
+            content: '';
+            position: absolute;
+            top: var(--ripple-y, 50%); left: var(--ripple-x, 50%);
+            width: 0; height: 0;
+            background: rgba(0, 206, 209, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            pointer-events: none;
+        }
+        .btn-liquid:hover {
+            transform: translateY(-2px);
+            background: rgba(13, 115, 119, 0.3);
+            border-color: var(--electric);
+            box-shadow: 0 8px 24px rgba(0, 206, 209, 0.2);
+        }
+        .btn-liquid:hover::before { width: 200px; height: 200px; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.01);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--transition-spring);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 206, 209, 0.3);
+            box-shadow: var(--shadow-teal);
+        }
+
+        .section-header-center {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 3.5rem;
+        }
+        .section-header-center h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.7));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .section-header-center p {
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        /* --- SECTION 1: NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 80px; z-index: 900;
+            background: rgba(6, 18, 40, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .navbar .container {
+            display: flex; align-items: center; justify-content: space-between; height: 100%;
+        }
+        .logo-block { display: flex; align-items: center; cursor: pointer; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a { color: rgba(255, 255, 255, 0.8); position: relative; padding: 0.5rem 0; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; width: 100%; height: 2px;
+            background-color: var(--electric); transform: translateX(-50%) scaleX(0);
+            transition: transform 0.3s var(--transition-smooth);
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { transform: translateX(-50%) scaleX(1); }
+        .nav-links a.active { color: var(--white); font-weight: 600; }
+        .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+
+        /* --- RESOURCES HUB HUB HERO --- */
+        .hub-hero-section {
+            padding-top: 150px;
+            padding-bottom: 4rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .hub-hero-section h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- SECTION 1: BLOG / GUIDES --- */
+        .blog-section { padding: 6rem 0; }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .blog-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 380px;
+            transform-style: preserve-3d;
+        }
+        .blog-card-glare {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at var(--bx, 50%) var(--by, 50%), rgba(255,255,255,0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .blog-tag {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--electric);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+        .blog-card h3 {
+            font-size: 1.35rem;
+            font-family: var(--font-sub);
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            color: var(--white);
+        }
+        .blog-card p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .blog-footer {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        .blog-link {
+            color: var(--electric);
+            font-family: var(--font-sub);
+            font-weight: 600;
+        }
+
+        /* --- SECTION 2: VIDEO GUIDES --- */
+        .videos-section {
+            padding: 6rem 0;
+            background: rgba(6, 18, 40, 0.3);
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .video-card {
+            cursor: pointer;
+        }
+        .video-thumbnail-box {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: var(--radius-md);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .video-card:hover .video-thumbnail-box {
+            border-color: var(--electric);
+            box-shadow: var(--shadow-teal);
+        }
+        .video-bg-gradient {
+            width: 100%; height: 100%;
+            transition: transform 0.5s var(--transition-smooth);
+        }
+        .video-card:hover .video-bg-gradient {
+            transform: scale(1.05);
+        }
+        .video-play-btn {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px; height: 48px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .video-card:hover .video-play-btn {
+            background: var(--white);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        .video-play-btn svg {
+            width: 16px; height: 16px; fill: var(--midnight); margin-left: 2px;
+        }
+        .video-card h4 {
+            font-family: var(--font-sub);
+            font-size: 1.05rem;
+            color: var(--white);
+            margin-bottom: 0.35rem;
+        }
+        .video-duration {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--muted);
+        }
+
+        /* --- SECTION 3: FAQ ACCORDION --- */
+        .faq-section { padding: 6rem 0; }
+        .faq-stack {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .faq-item {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .faq-item:hover {
+            border-color: rgba(0, 206, 209, 0.3);
+            background: rgba(255,255,255,0.02);
+        }
+        .faq-trigger {
+            width: 100%;
+            padding: 1.25rem 1.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+            font-family: var(--font-sub);
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+        .faq-arrow {
+            font-size: 0.85rem;
+            color: var(--electric);
+            transition: transform 0.4s var(--transition-smooth);
+        }
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .faq-content-inner {
+            padding: 0 1.75rem 1.5rem;
+            font-size: 0.925rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+        }
+        /* Active structural states */
+        .faq-item.active {
+            border-color: var(--electric);
+            background: rgba(13, 115, 119, 0.05);
+        }
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+
+        /* --- PRICING & PLANS --- */
+        .pricing-section {
+            padding: 6rem 0;
+            background: radial-gradient(circle at 50% 50%, #0c254e 0%, var(--midnight) 70%);
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+        .pricing-toggle-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 3.5rem;
+        }
+        .toggle-label {
+            font-family: var(--font-sub);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+        .toggle-label.active { color: var(--white); font-weight: 600; }
+        .pricing-switch {
+            width: 50px; height: 26px;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-pill);
+            position: relative; cursor: pointer;
+            transition: background 0.3s;
+        }
+        .pricing-switch::after {
+            content: ''; position: absolute; top: 3px; left: 3px;
+            width: 20px; height: 20px; background: var(--white);
+            border-radius: 50%; transition: transform 0.3s var(--transition-smooth);
+        }
+        .pricing-switch.yearly { background: var(--teal); }
+        .pricing-switch.yearly::after { transform: translateX(24px); }
+        .save-badge {
+            background: rgba(30, 132, 73, 0.2);
+            border: 1px solid rgba(30, 132, 73, 0.4);
+            color: var(--green);
+            font-family: var(--font-mono);
+            font-size: 0.7rem; font-weight: bold;
+            padding: 0.15rem 0.5rem; border-radius: var(--radius-pill);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            align-items: stretch;
+            margin-bottom: 5rem;
+        }
+        .pricing-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+        .pricing-card.popular {
+            border-color: var(--electric);
+            box-shadow: var(--shadow-electric);
+            background: rgba(0, 206, 209, 0.02);
+        }
+        .plan-badge {
+            position: absolute;
+            top: 1.5rem; right: 1.5rem;
+            background: var(--electric);
+            color: var(--midnight);
+            font-family: var(--font-mono);
+            font-size: 0.65rem; font-weight: bold;
+            padding: 0.2rem 0.6rem; border-radius: var(--radius-sm);
+        }
+        .plan-name {
+            font-family: var(--font-sub);
+            font-size: 1.25rem; color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .plan-price-block {
+            margin: 1.5rem 0;
+            display: flex; align-items: baseline;
+        }
+        .price-currency { font-size: 1.25rem; font-family: var(--font-display); margin-right: 2px; }
+        .price-amt {
+            font-size: 3rem; font-family: var(--font-display); font-weight: bold;
+            color: var(--white); line-height: 1;
+        }
+        .price-period { font-size: 0.85rem; color: var(--muted); margin-left: 4px; }
+        
+        .plan-features-list {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 0.85rem;
+            margin-bottom: 2.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 1.5rem;
+        }
+        .plan-features-list li {
+            display: flex; align-items: center; gap: 0.75rem;
+            font-size: 0.9rem; color: rgba(255,255,255,0.8);
+        }
+        .feature-check { color: var(--electric); font-weight: bold; }
+
+        /* Plan Comparison Table */
+        .comparison-wrapper {
+            overflow-x: auto;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 4rem;
+        }
+        .comparison-table {
+            width: 100%; border-collapse: collapse; text-align: left;
+            font-size: 0.9rem;
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .comparison-table th {
+            font-family: var(--font-sub); font-size: 0.95rem; color: var(--white);
+            background: rgba(6, 18, 40, 0.4);
+        }
+        .comparison-table tr {
+            opacity: 0; transform: translateY(15px);
+            transition: all 0.5s var(--transition-smooth);
+        }
+        .comparison-table tr.revealed { opacity: 1; transform: translateY(0); }
+        .feature-category-row {
+            background: rgba(255,255,255,0.01);
+            font-weight: 600; color: var(--electric);
+        }
+
+        /* --- TRUST & SAFETY matrix --- */
+        .safety-section { padding: 6rem 0; }
+        .safety-stack {
+            display: flex; flex-direction: column; gap: 1.5rem;
+            max-width: 900px; margin: 0 auto;
+        }
+        .safety-layer-card {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            transition: all 0.4s var(--transition-smooth);
+        }
+        .safety-layer-card:hover {
+            border-color: rgba(0, 206, 209, 0.3);
+            background: rgba(255,255,255,0.02);
+        }
+        .safety-summary-row {
+            display: flex; align-items: center; gap: 2rem;
+        }
+        .safety-num-box {
+            width: 40px; height: 40px; border-radius: 50%;
+            border: 2px solid var(--teal); display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono); font-weight: bold; color: var(--teal);
+            transition: all 0.3s;
+        }
+        .safety-layer-card:hover .safety-num-box {
+            border-color: var(--electric); color: var(--electric);
+            box-shadow: 0 0 10px rgba(0,206,209,0.3);
+        }
+        .safety-title-block { flex: 1; }
+        .safety-title-block h3 { font-family: var(--font-sub); font-size: 1.15rem; color: var(--white); margin-bottom: 0.15rem; }
+        .safety-title-block p { font-size: 0.85rem; color: var(--muted); }
+        .safety-catch-badge {
+            background: rgba(30, 132, 73, 0.08); border: 1px solid rgba(30, 132, 73, 0.2);
+            padding: 0.4rem 1rem; border-radius: var(--radius-pill);
+            color: var(--green); font-family: var(--font-sub); font-size: 0.75rem; font-weight: 600;
+        }
+        .safety-expanded-panel {
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-top: 1px solid transparent;
+            margin-top: 0;
+        }
+        .safety-expanded-inner {
+            padding: 1.5rem 0 0 4.5rem;
+            font-size: 0.925rem; color: rgba(255,255,255,0.75); line-height: 1.6;
+        }
+        /* Active expandable state classes */
+        .safety-layer-card.active {
+            border-color: var(--electric);
+            background: rgba(13, 115, 119, 0.04);
+            box-shadow: var(--shadow-teal);
+        }
+        .safety-layer-card.active .safety-expanded-panel {
+            border-top-color: rgba(255,255,255,0.05);
+            margin-top: 1.25rem;
+        }
+
+        /* --- BREAKPOINTS RESPONSIVENESS --- */
+        @media (max-width: 1024px) {
+            .blog-grid, .video-grid, .pricing-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+            .hub-hero-section h1 { font-size: 2.5rem; }
+            .safety-summary-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .safety-catch-badge { align-self: flex-start; }
+            .safety-expanded-inner { padding-left: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo-block" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <svg width="36" height="36" viewBox="0 0 100 100" fill="none" style="margin-right: 10px;">
+                    <path d="M25,75 C25,50 45,55 50,55" stroke="#00CED1" stroke-width="11" stroke-linecap="round" />
+                    <path d="M75,75 C75,50 55,55 50,55" stroke="#1B3A6B" stroke-width="11" stroke-linecap="round" />
+                    <path d="M25,75 C35,60 65,60 75,75" stroke="var(--teal)" stroke-width="5" stroke-linecap="round" fill="none" />
+                    <circle cx="25" cy="32" r="8" fill="#1B3A6B" /><circle cx="75" cy="32" r="8" fill="#00CED1" />
+                </svg>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; line-height: 1;"><span style="color: #ffffff;">Skill</span><span style="color: #00CED1;">Bridge</span></span>
+                    <span style="font-family: var(--font-sub); font-size: 7px; letter-spacing: 1px; color: var(--muted); margin-top: 2px; font-weight: bold;">BY THE PEOPLE, FOR THE PEOPLE</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Explore Skills</a>
+                <a href="#">Find Mentors</a>
+                <a href="#">Community</a>
+                <a href="#" class="active">Resources</a>
+            </div>
+            <div class="nav-auth">
+                <button class="btn-ghost" style="padding: 0.5rem 1rem;">Log In</button>
+                <button class="btn-liquid">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hub-hero-section">
+        <div class="container">
+            <h1>Knowledge & Value Ecosystem</h1>
+            <p style="color: var(--muted); max-width: 600px; margin: 0 auto;">Access systematic documentation, transparent operation plans, and safety protocols parameters.</p>
+        </div>
+    </header>
+
+    <section class="blog-section">
+        <div class="container">
+            <div class="section-header-center">
+                <h2>Latest Strategy Guides</h2>
+                <p>Architectural educational blueprints to help maximize your skill token exchange loops.</p>
+            </div>
+
+            <div class="blog-grid">
+                <div class="glass-card blog-card tilt-card">
+                    <div class="blog-card-glare"></div>
+                    <div>
+                        <span class="blog-tag">Ecosystem Strategy</span>
+                        <h3>Maximizing Value Extraction From Non-Monetary Learning Loops</h3>
+                        <p>Learn how to precisely structure your sub-topic declarations to double your connection requests within 7 days.</p>
+                    </div>
+                    <div class="blog-footer">
+                        <span>5 min read</span>
+                        <a href="#" class="blog-link">Read Guide →</a>
+                    </div>
+                </div>
+                <div class="glass-card blog-card tilt-card">
+                    <div class="blog-card-glare"></div>
+                    <div>
+                        <span class="blog-tag">Trust Metrics</span>
+                        <h3>How to Maintain a Flawless Network Node Trust Score</h3>
+                        <p>A deep look into the dual post-session rating algorithms and strategies to prevent soft bluffing deductions.</p>
+                    </div>
+                    <div class="blog-footer">
+                        <span>8 min read</span>
+                        <a href="#" class="blog-link">Read Guide →</a>
+                    </div>
+                </div>
+                <div class="glass-card blog-card tilt-card">
+                    <div class="blog-card-glare"></div>
+                    <div>
+                        <span class="blog-tag">Mentorship</span>
+                        <h3>Curriculum Architecture For High-Impact Peer Exchanges</h3>
+                        <p>Break down abstract domain concepts into manageable milestones designed for the synchronized live calendar blocks.</p>
+                    </div>
+                    <div class="blog-footer">
+                        <span>6 min read</span>
+                        <a href="#" class="blog-link">Read Guide →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="videos-section">
+        <div class="container">
+            <div class="section-header-center">
+                <h2>Video Walkthroughs</h2>
+                <p>Visual verification documentation to help you configure your dashboard nodes immediately.</p>
+            </div>
+
+            <div class="video-grid">
+                <div class="video-card" onclick="alert('Video engine streaming initializing...')">
+                    <div class="video-thumbnail-box">
+                        <div class="video-bg-gradient" style="background: linear-gradient(135deg, var(--navy), var(--teal));"></div>
+                        <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <h4>Configuring Your Skill Tree Profile</h4>
+                    <span class="video-duration">Duration: 3m 45s</span>
+                </div>
+                <div class="video-card" onclick="alert('Video engine streaming initializing...')">
+                    <div class="video-thumbnail-box">
+                        <div class="video-bg-gradient" style="background: linear-gradient(135deg, var(--midnight), var(--navy));"></div>
+                        <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <h4>The Spot Verification Quiz Pipeline</h4>
+                    <span class="video-duration">Duration: 4m 12s</span>
+                </div>
+                <div class="video-card" onclick="alert('Video engine streaming initializing...')">
+                    <div class="video-thumbnail-box">
+                        <div class="video-bg-gradient" style="background: linear-gradient(135deg, var(--teal), var(--electric));"></div>
+                        <div class="video-play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+                    </div>
+                    <h4>Escrow Mechanics: Earning Skill Credits</h4>
+                    <span class="video-duration">Duration: 2m 58s</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header-center">
+                <h2>Frequently Asked Questions</h2>
+                <p>Clear, direct answers regarding the foundational mechanisms of SkillBridge.</p>
+            </div>
+
+            <div class="faq-stack">
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">How do Skill Credits actually work? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">Skill Credits act as a non-fiat, pure educational value proxy. You earn them by dedicating hourly block increments to teaching another vetted node. You spend them systematically to purchase custom instructional slots from adjacent field experts. No cash ever changes hands.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">What parameters define the Trust System score? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">Your trust variable is calculated dynamically using late no-show logs, spot test precision, and symmetric dual post-session quality metrics. Dropping below a score of 70 reduces your matching pipeline priority ranking automatically.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">How does the AI matchmaking algorithm pair nodes? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">The engine clusters complementary demand vectors. It searches for direct inverse pairs (Node A has X/wants Y; Node B has Y/wants X) while cross-referencing availability calendars and target capability depths to minimize scheduling friction.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">What session format options are supported? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">Users can toggle between live secure virtual video channels rendered inside the dashboard or coordinate offline, localized physical rendezvous blocks for real-world interactive tracking.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">How do I transition to a verified Mentor? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">To unlock professional mentorship status tiers, you must pass structural topic-specific testing configurations and secure a consecutive run of 5 reviews rated 4.8 or above from your student loops.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">What is your token refund or dispute policy? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">Because there is no traditional currency, there are no financial refund pipelines. If an exchange loop is compromised by a confirmed no-show or poor execution, the credits held in escrow are safely returned to the learner's vault profile, while deducting trust points from the bad actor.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">Are there any specific age restrictions? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">SkillBridge requires all users accessing the environments to be 16 years of age or older to participate in decentralized peer-to-peer instructional loops.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">Do you support corporate integration plans? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">Yes. Our Elite/Enterprise track maps private sub-networks allowing enterprise companies to cross-skill internal corporate employee talent pools without incurring high consulting expenses.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">Is there a native mobile application available? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">The native hybrid iOS/Android mobile build wrappers are currently scheduled to deploy into alpha verification pipelines in late Q3 2026. Currently, our layouts use fully responsive PWA web frames.</div></div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-trigger" onclick="toggleFaqItemBlock(this)">How can universities or institutions form partnerships? <span class="faq-arrow">▼</span></div>
+                    <div class="faq-content"><div class="faq-content-inner">Educational institutions can request centralized API portal white-labeling by contacting our system coordination board directly via corporate routing channels.</div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="container">
+            <div class="section-header-center">
+                <h2>Simple. Transparent. Always Free at the Core.</h2>
+                <p>Upgrade only if you want optimized matching power capabilities.</p>
+            </div>
+
+            <div class="pricing-toggle-wrap">
+                <span class="toggle-label active" id="lbl-monthly">Monthly Billing</span>
+                <div class="pricing-switch" id="billing-toggle-switch" onclick="toggleBillingPeriodPlanCycle()"></div>
+                <span class="toggle-label" id="lbl-yearly">Yearly Billing</span>
+                <span class="save-badge">Save 22%</span>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="glass-card pricing-card">
+                    <div>
+                        <div class="plan-badge" style="background: rgba(255,255,255,0.08); color: white;">POPULAR</div>
+                        <h3 class="plan-name">Core Free</h3>
+                        <p style="font-size: 0.8rem; color: var(--muted);">Foundational peer bridging mechanics</p>
+                        <div class="plan-price-block">
+                            <span class="price-currency">PKR</span>
+                            <span class="price-amt">0</span>
+                            <span class="price-period">/ month</span>
+                        </div>
+                        <ul class="plan-features-list">
+                            <li><span class="feature-check">✓</span> 3 active bridge requests</li>
+                            <li><span class="feature-check">✓</span> Standard AI matching matrix</li>
+                            <li><span class="feature-check">✓</span> Base community feed access</li>
+                            <li><span class="feature-check">✓</span> Basic dynamic trust score</li>
+                        </ul>
+                    </div>
+                    <button class="btn-liquid" style="width: 100%;">Get Started Free</button>
+                </div>
+                <div class="glass-card pricing-card popular">
+                    <div>
+                        <div class="plan-badge">POWER PACK</div>
+                        <h3 class="plan-name">Premium Node</h3>
+                        <p style="font-size: 0.8rem; color: var(--electric);">Optimized vector scaling tools</p>
+                        <div class="plan-price-block">
+                            <span class="price-currency">PKR</span>
+                            <span class="price-amt" id="premium-price-label">800</span>
+                            <span class="price-period" id="premium-period-label">/ month</span>
+                        </div>
+                        <ul class="plan-features-list">
+                            <li><span class="feature-check">✓</span> Unlimited active bridges</li>
+                            <li><span class="feature-check">✓</span> Priority AI matching pipeline</li>
+                            <li><span class="feature-check">✓</span> Advanced analytics dashboard</li>
+                            <li><span class="feature-check">✓</span> Featured search profile listing</li>
+                            <li><span class="feature-check">✓</span> Group Circles creation tools</li>
+                        </ul>
+                    </div>
+                    <button class="btn-liquid" style="width: 100%; background: var(--teal); border-color: var(--electric);">Go Premium Node</button>
+                </div>
+                <div class="glass-card pricing-card">
+                    <div>
+                        <h3 class="plan-name">Elite Master</h3>
+                        <p style="font-size: 0.8rem; color: var(--yellow);">Enterprise consulting layers</p>
+                        <div class="plan-price-block">
+                            <span class="price-currency">PKR</span>
+                            <span class="price-amt" id="elite-price-label">2500</span>
+                            <span class="price-period" id="elite-period-label">/ month</span>
+                        </div>
+                        <ul class="plan-features-list">
+                            <li><span class="feature-check">✓</span> Everything in Premium track</li>
+                            <li><span class="feature-check">✓</span> Corporate partner pool access</li>
+                            <li><span class="feature-check">✓</span> Micro-consulting monetization</li>
+                            <li><span class="feature-check">✓</span> Advisory board voting seats</li>
+                        </ul>
+                    </div>
+                    <button class="btn-ghost" style="width: 100%;">Apply for Elite Tier</button>
+                </div>
+            </div>
+
+            <div class="comparison-wrapper">
+                <table class="comparison-table" id="comparison-table-root">
+                    <thead>
+                        <tr>
+                            <th>Operational Matrix Feature</th>
+                            <th>Core Free</th>
+                            <th>Premium Node</th>
+                            <th>Elite Master</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="feature-category-row"><td colspan="4">Matching Pipelines</td></tr>
+                        <tr><td>Active Connection Requests Limit</td><td>3 active</td><td>Unlimited</td><td>Unlimited</td></tr>
+                        <tr><td>AI Cluster Sorting Priority</td><td>Standard</td><td>High Priority</td><td>Instant Matching</td></tr>
+                        <tr class="feature-category-row"><td colspan="4">Monetization & Credentials</td></tr>
+                        <tr><td>Vetted Skill Certifications</td><td>PKR 2,500 each</td><td>Included</td><td>Included</td></tr>
+                        <tr><td>Micro-Consulting Options</td><td>N/A</td><td>N/A</td><td>Earn PKR 500 / slot</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="safety-section">
+        <div class="container">
+            <div class="section-header-center">
+                <h2>The 5-Layer Trust Defence Matrix</h2>
+                <p>Click any operational layer segment block to expand architectural parameters blueprints.</p>
+            </div>
+
+            <div class="safety-stack">
+                <div class="safety-layer-card" onclick="toggleSafetyLayerDrawer(this)">
+                    <div class="safety-summary-row">
+                        <div class="safety-num-box">1</div>
+                        <div class="safety-title-block">
+                            <h3>Structured Skill Declaration Architecture</h3>
+                            <p>Prevents vague abstract expertise summaries by forcing granular metric entry points.</p>
+                        </div>
+                        <div class="safety-catch-badge">Catches Vague Claims</div>
+                    </div>
+                    <div class="safety-expanded-panel">
+                        <div class="safety-expanded-inner">
+                            Users are restricted from typing raw undefined paragraphs to describe competence. Our taxonomy tree maps skills into distinct technical leaves. To claim expertise in a segment, you must declare exactly which sub-frameworks, tools, or lifecycles you have executed.
+                        </div>
+                    </div>
+                </div>
+                <div class="safety-layer-card" onclick="toggleSafetyLayerDrawer(this)">
+                    <div class="safety-summary-row">
+                        <div class="safety-num-box">2</div>
+                        <div class="safety-title-block">
+                            <h3>Pre-Session Verification Spot Quiz</h3>
+                            <p>Automated randomized diagnostic challenges processed before scheduling access matches.</p>
+                        </div>
+                        <div class="safety-catch-badge">Catches Complete Bluffing</div>
+                    </div>
+                    <div class="safety-expanded-panel">
+                        <div class="safety-expanded-inner">
+                            Before an expert node can list calendar blocks, our system fires a brief 3-question diagnostic screening derived from community-vetted question pools. This validates basic core competence in real-time, removing bad actors instantly.
+                        </div>
+                    </div>
+                </div>
+                <div class="safety-layer-card" onclick="toggleSafetyLayerDrawer(this)">
+                    <div class="safety-summary-row">
+                        <div class="safety-num-box">3</div>
+                        <div class="safety-title-block">
+                            <h3>Credit Escrow System Protection</h3>
+                            <p>Secures connection assets inside temporary safe vaults during matching phases.</p>
+                        </div>
+                        <div class="safety-catch-badge">Catches No-Shows</div>
+                    </div>
+                    <div class="safety-expanded-panel">
+                        <div class="safety-expanded-inner">
+                            When a bridge loop is scheduled, tokens are pulled out of the student's wallet and locked into an escrow state. If a mentor fails to establish video links within 15 minutes of the allocated block, the escrow is automatically broken and returned to the student.
+                        </div>
+                    </div>
+                </div>
+                <div class="safety-layer-card" onclick="toggleSafetyLayerDrawer(this)">
+                    <div class="safety-summary-row">
+                        <div class="safety-num-box">4</div>
+                        <div class="safety-title-block">
+                            <h3>Dual Post-Session Metric Reviews</h3>
+                            <p>Mandatory mutual completion rating cards regulating reporting parameters feedback blocks.</p>
+                        </div>
+                        <div class="safety-catch-badge">Catches Soft Bluffing</div>
+                    </div>
+                    <div class="safety-expanded-panel">
+                        <div class="safety-expanded-inner">
+                            Upon session completion, both nodes must complete symmetric verification criteria ratings. This logs execution accuracy and tracking parameters against public profiles, identifying users who deliver substandard training values.
+                        </div>
+                    </div>
+                </div>
+                <div class="safety-layer-card" onclick="toggleSafetyLayerDrawer(this)">
+                    <div class="safety-summary-row">
+                        <div class="safety-num-box">5</div>
+                        <div class="safety-title-block">
+                            <h3>Dynamic Network Trust Score (0–100)</h3>
+                            <p>Persistent calculated state variable managing global environmental permissions boundaries.</p>
+                        </div>
+                        <div class="safety-catch-badge">Catches Persistent Bad Actors</div>
+                    </div>
+                    <div class="safety-expanded-panel">
+                        <div class="safety-expanded-inner">
+                            Your global trust matrix variable updates after every system event. Dropping below a score of 70 triggers immediate restrictions on active concurrent bridges, while a score below 50 results in a permanent automated vault lock.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let IS_YEARLY_BILLING_CYCLE = false;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeGlobalCursorNodes();
+            initializePricingComparisonObserver();
+            initialize3DTiltPhysicsCards();
+        });
+
+        /* --- GLOBAL CURSOR RENDERER ENGINE --- */
+        function initializeGlobalCursorNodes() {
+            const cursor = document.getElementById('custom-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            document.querySelectorAll('a, button, .faq-trigger, .safety-layer-card, .pricing-switch').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        }
+
+        /* --- BLOG CARDS PERSPECTIVE 3D TILT --- */
+        function initialize3DTiltPhysicsCards() {
+            document.querySelectorAll('.blog-card').forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const xc = rect.width / 2;
+                    const yc = rect.height / 2;
+                    const rotateX = (yc - y) / 12;
+                    const rotateY = (x - xc) / 12;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                    card.style.setProperty('--bx', `${(x / rect.width) * 100}%`);
+                    card.style.setProperty('--by', `${(y / rect.height) * 100}%`);
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+                });
+            });
+        }
+
+        /* --- ACCORDION EXPAND COLLAPSE CONSTRUCTS --- */
+        function toggleFaqItemBlock(triggerElement) {
+            const faqItem = triggerElement.parentElement;
+            const faqContent = faqItem.querySelector('.faq-content');
+            
+            if (faqItem.classList.contains('active')) {
+                faqContent.style.maxHeight = '0px';
+                faqItem.classList.remove('active');
+            } else {
+                // Close open instances
+                document.querySelectorAll('.faq-item').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.faq-content').style.maxHeight = '0px';
+                });
+                faqContent.style.maxHeight = faqContent.scrollHeight + 'px';
+                faqItem.classList.add('active');
+            }
+        }
+
+        /* --- PRICING MODEL SMOOTH PRICE UPDATES --- */
+        function toggleBillingPeriodPlanCycle() {
+            const sw = document.getElementById('billing-toggle-switch');
+            const premiumPrice = document.getElementById('premium-price-label');
+            const premiumPeriod = document.getElementById('premium-period-label');
+            const elitePrice = document.getElementById('elite-price-label');
+            const elitePeriod = document.getElementById('elite-period-label');
+            
+            const lblM = document.getElementById('lbl-monthly');
+            const lblY = document.getElementById('lbl-yearly');
+
+            if (IS_YEARLY_BILLING_CYCLE) {
+                sw.classList.remove('yearly');
+                lblM.classList.add('active');
+                lblY.classList.remove('active');
+                premiumPrice.innerText = "800";
+                premiumPeriod.innerText = "/ month";
+                elitePrice.innerText = "2,500";
+                elitePeriod.innerText = "/ month";
+                IS_YEARLY_BILLING_CYCLE = false;
+            } else {
+                sw.classList.add('yearly');
+                lblY.classList.add('active');
+                lblM.classList.remove('active');
+                premiumPrice.innerText = "625"; // Approx valuation with 22% deduction metrics applied
+                premiumPeriod.innerText = "/ month (billed annually)";
+                elitePrice.innerText = "1,950";
+                elitePeriod.innerText = "/ month (billed annually)";
+                IS_YEARLY_BILLING_CYCLE = true;
+            }
+        }
+
+        /* --- PLAN TABLE STAGGER REVEAL OBSERVERS --- */
+        function initializePricingComparisonObserver() {
+            const options = { threshold: 0.1, rootMargin: "0px 0px -20px 0px" };
+            
+            const rowObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const rows = entry.target.querySelectorAll('tr');
+                        rows.forEach((row, idx) => {
+                            setTimeout(() => {
+                                row.classList.add('revealed');
+                            }, idx * 60);
+                        });
+                        rowObserver.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            const compTable = document.getElementById('comparison-table-root');
+            if(compTable) rowObserver.observe(compTable);
+        }
+
+        /* --- SAFETY LAYER EXPAND CONTEXT BLUEPRINTS --- */
+        function toggleSafetyLayerDrawer(cardElement) {
+            const drawerPanel = cardElement.querySelector('.safety-expanded-panel');
+            
+            if (cardElement.classList.contains('active')) {
+                drawerPanel.style.maxHeight = '0px';
+                cardElement.classList.remove('active');
+            } else {
+                document.querySelectorAll('.safety-layer-card').forEach(el => {
+                    el.classList.remove('active');
+                    el.querySelector('.safety-expanded-panel').style.maxHeight = '0px';
+                });
+                drawerPanel.style.maxHeight = drawerPanel.scrollHeight + 'px';
+                cardElement.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Bridge Community Hub — Where Knowledge Becomes Currency</title>
+    <meta name="description" content="Connect, share, and scale loops inside the non-monetary SkillBridge peer-to-peer network engine.">
+    <link rel="preconnect" href="https://api.fontshare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono&family=Sora:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Color Palette */
+            --navy: #1B3A6B;
+            --teal: #0D7377;
+            --electric: #00CED1;
+            --midnight: #061228;
+            --light-bg: #F0F4F8;
+            --white: #FFFFFF;
+            --dark-text: #1C2833;
+            --muted: #717D7E;
+            --yellow: #F4D03F;
+            --green: #1E8449;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(0, 206, 209, 0.15);
+
+            /* Typography */
+            --font-display: 'Clash Display', sans-serif;
+            --font-sub: 'Sora', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+
+            /* Radii */
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-pill: 999px;
+
+            /* Shadows & Glows */
+            --shadow-teal: 0 0 30px rgba(13, 115, 119, 0.25);
+            --shadow-electric: 0 0 40px rgba(0, 206, 209, 0.2);
+            --shadow-gold: 0 0 30px rgba(244, 208, 63, 0.3);
+
+            /* Transitions */
+            --transition-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- BASE RESETS --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            color: var(--white);
+            font-family: var(--font-body);
+            background-color: var(--midnight);
+            overflow-x: hidden;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at 50% 0%, #0a2246 0%, var(--midnight) 80%);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--midnight); }
+        ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+        h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.5px; }
+        p { font-family: var(--font-body); line-height: 1.5; color: rgba(255,255,255,0.7); }
+        a { text-decoration: none; color: inherit; transition: all 0.3s var(--transition-smooth); }
+        button, input, textarea { font-family: inherit; outline: none; border: none; background: none; color: inherit; }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Custom Cursor styling */
+        #custom-cursor {
+            position: fixed;
+            top: 0; left: 0;
+            width: 12px; height: 12px;
+            background-color: var(--electric);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: width 0.15s var(--transition-smooth), height 0.15s var(--transition-smooth), background-color 0.15s var(--transition-smooth), border 0.15s var(--transition-smooth);
+        }
+        #custom-cursor.hovered {
+            width: 32px; height: 32px;
+            background-color: transparent;
+            border: 2px solid var(--electric);
+        }
+
+        @media (max-width: 1024px) {
+            #custom-cursor { display: none !important; }
+        }
+
+        /* --- PREFERS REDUCED MOTION --- */
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-delay: -1ms !important;
+                animation-duration: 1ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0s !important;
+                transition-delay: 0s !important;
+            }
+        }
+
+        /* --- REUSABLE MODULE COMPONENTS --- */
+        .aurora-bg {
+            background: linear-gradient(135deg, #061228, #1B3A6B, #0D7377, #061228);
+            background-size: 300% 300%;
+            animation: auroraLoop 12s ease infinite;
+        }
+        @keyframes auroraLoop {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .btn-liquid {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sub);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--white);
+            background: rgba(13, 115, 119, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 206, 209, 0.25);
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        .btn-liquid::before {
+            content: '';
+            position: absolute;
+            top: var(--ripple-y, 50%); left: var(--ripple-x, 50%);
+            width: 0; height: 0;
+            background: rgba(0, 206, 209, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+            pointer-events: none;
+        }
+        .btn-liquid:hover {
+            transform: translateY(-2px);
+            background: rgba(13, 115, 119, 0.3);
+            border-color: var(--electric);
+            box-shadow: 0 8px 24px rgba(0, 206, 209, 0.2);
+        }
+        .btn-liquid:hover::before { width: 200px; height: 200px; }
+        .btn-liquid:active { transform: translateY(1px); }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.65rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-family: var(--font-sub);
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.3s var(--transition-smooth);
+        }
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--white);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s var(--transition-spring);
+        }
+        .glass-card:hover {
+            border-color: rgba(0, 206, 209, 0.3);
+            box-shadow: var(--shadow-teal);
+        }
+
+        .avatar-circle {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--navy), var(--electric));
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-sub); font-weight: 600; color: var(--white);
+            border: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+        }
+
+        /* --- SECTION 1: NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            height: 80px; z-index: 900;
+            background: rgba(6, 18, 40, 0.85);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .navbar .container {
+            display: flex; align-items: center; justify-content: space-between; height: 100%;
+        }
+        .logo-block { display: flex; align-items: center; cursor: pointer; }
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links a { color: rgba(255, 255, 255, 0.8); position: relative; padding: 0.5rem 0; }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: 0; left: 50%; width: 100%; height: 2px;
+            background-color: var(--electric); transform: translateX(-50%) scaleX(0);
+            transition: transform 0.3s var(--transition-smooth);
+        }
+        .nav-links a:hover { color: var(--white); }
+        .nav-links a:hover::after { transform: translateX(-50%) scaleX(1); }
+        .nav-links a.active { color: var(--white); font-weight: 600; }
+        .nav-links a.active::after { transform: translateX(-50%) scaleX(1); }
+
+        /* --- COMMUNITY HERO --- */
+        .community-hero {
+            padding-top: 130px;
+            padding-bottom: 2.5rem;
+            text-align: center;
+            position: relative;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .community-hero h1 {
+            font-size: 2.75rem; margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--white), rgba(255,255,255,0.7));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .live-counter-box {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: rgba(0, 206, 209, 0.1); border: 1px solid rgba(0, 206, 209, 0.25);
+            padding: 0.35rem 1rem; border-radius: var(--radius-pill);
+            font-family: var(--font-sub); font-size: 0.8rem; color: var(--electric);
+            margin-top: 1rem;
+        }
+        .blinking-dot {
+            width: 8px; height: 8px; background-color: var(--electric); border-radius: 50%;
+            animation: pulseBlink 1.5s infinite alternate;
+            box-shadow: 0 0 8px var(--electric);
+        }
+        @keyframes pulseBlink { 0% { opacity: 0.3; } 100% { opacity: 1; } }
+
+        /* --- COMMUNITY TRIPLET WORKSPACE LAYOUT --- */
+        .workspace-layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2.5rem;
+            padding: 3rem 0;
+            align-items: start;
+        }
+
+        /* --- MIDDLE COLUMN: FEED --- */
+        .community-feed-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        /* Post Composer Matrix */
+        .post-composer-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.4s var(--transition-smooth);
+        }
+        .composer-top-row {
+            display: flex; gap: 1rem; align-items: flex-start;
+        }
+        .composer-textarea {
+            flex: 1; min-height: 44px; max-height: 200px;
+            padding: 0.65rem 0; font-size: 0.95rem;
+            border: none; background: transparent; color: var(--white);
+            resize: none; transition: min-height 0.3s var(--transition-smooth);
+        }
+        .composer-textarea::placeholder { color: var(--muted); }
+        .composer-hidden-options {
+            display: none; opacity: 0;
+            flex-direction: column; gap: 1rem;
+            border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;
+            transition: opacity 0.3s ease;
+        }
+        .post-composer-card.expanded .composer-hidden-options {
+            display: flex; opacity: 1;
+        }
+        .post-composer-card.expanded .composer-textarea {
+            min-height: 90px;
+        }
+        .composer-tags-input-box {
+            display: flex; gap: 0.5rem; align-items: center;
+            background: rgba(6, 18, 40, 0.4); border: 1px solid rgba(255,255,255,0.05);
+            padding: 0.5rem 1rem; border-radius: var(--radius-md);
+        }
+        .composer-tags-input-box input {
+            font-size: 0.8rem; width: 100%;
+        }
+        .composer-actions-row {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .composer-tools-piles {
+            display: flex; gap: 0.5rem;
+        }
+
+        /* Feed Posts Templates */
+        .feed-post-item-card {
+            display: flex; flex-direction: column; gap: 1.25rem;
+        }
+        .post-header-meta {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .post-author-block {
+            display: flex; gap: 1rem; align-items: center;
+        }
+        .author-name-title h4 { font-family: var(--font-sub); font-size: 0.95rem; }
+        .author-name-title span { font-size: 0.75rem; color: var(--muted); font-family: var(--font-mono); }
+        .post-special-badge {
+            background: rgba(0, 206, 209, 0.15); color: var(--electric);
+            border: 1px solid rgba(0, 206, 209, 0.3); font-family: var(--font-mono);
+            font-size: 0.7rem; font-weight: 600; padding: 0.2rem 0.6rem; border-radius: var(--radius-sm);
+        }
+        .post-body-text {
+            font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.6;
+        }
+        .post-body-text p.hidden-post-content {
+            display: none; margin-top: 0.5rem;
+        }
+        .read-more-toggle-link {
+            color: var(--electric); font-size: 0.85rem; font-family: var(--font-sub); cursor: pointer; margin-left: 0.5rem;
+        }
+
+        /* Embedded Custom Items Renders inside Posts */
+        .embedded-post-asset-container {
+            background: rgba(6, 18, 40, 0.5); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius-md); padding: 1.25rem; margin-top: 0.25rem;
+        }
+        .post-inline-badge-box {
+            display: inline-flex; align-items: center; gap: 0.75rem;
+            background: rgba(244, 208, 63, 0.05); border: 1px solid rgba(244, 208, 63, 0.2);
+            padding: 0.5rem 1rem; border-radius: var(--radius-md);
+            box-shadow: var(--shadow-gold);
+        }
+        
+        .post-footer-metrics-bar {
+            border-top: 1px solid rgba(255,255,255,0.04); padding-top: 1rem;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .post-interactive-triggers {
+            display: flex; gap: 1.5rem; font-family: var(--font-sub); font-size: 0.8rem; color: var(--muted);
+        }
+        .trigger-action-node {
+            display: flex; align-items: center; gap: 0.4rem; cursor: pointer; transition: color 0.2s;
+        }
+        .trigger-action-node:hover { color: var(--white); }
+        .trigger-action-node.heart-node.liked {
+            color: #E74C3C; font-weight: bold;
+        }
+        .heart-svg-icon {
+            fill: none; stroke: currentColor; stroke-width: 2; width: 15px; height: 15px;
+            transition: transform 0.3s var(--transition-spring);
+        }
+        .trigger-action-node.heart-node.liked .heart-svg-icon {
+            fill: #E74C3C; stroke: #E74C3C;
+            animation: heartBounce 0.45s var(--transition-spring) forwards;
+        }
+        @keyframes heartBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+
+        /* --- RIGHT SIDEBAR WIDGET PANELS --- */
+        .right-sidebar-stack {
+            display: flex; flex-direction: column; gap: 2rem;
+        }
+        .sidebar-widget-box h3 {
+            font-family: var(--font-sub); font-size: 1rem; color: var(--white);
+            border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.75rem; margin-bottom: 1rem;
+        }
+        
+        .trending-list-stack, .active-offers-stack, .champions-list-stack, .events-cards-stack {
+            display: flex; flex-direction: column; gap: 0.85rem;
+        }
+
+        /* Trending list specs */
+        .trending-tag-row-item {
+            display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem;
+        }
+        .trending-tag-lbl {
+            font-family: var(--font-sub); color: rgba(255,255,255,0.8); cursor: pointer;
+        }
+        .trending-tag-lbl:hover { color: var(--electric); }
+        .trending-growth-metric { font-family: var(--font-mono); font-size: 0.75rem; color: var(--green); }
+
+        /* Offers widgets structural rows */
+        .offer-row-card {
+            background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03);
+            padding: 0.75rem 1rem; border-radius: var(--radius-md); display: flex; flex-direction: column; gap: 0.35rem;
+        }
+        .offer-row-card h5 { font-family: var(--font-sub); font-size: 0.85rem; color: var(--white); }
+        .offer-row-card p { font-size: 0.75rem; }
+
+        /* Champions element layouts */
+        .champion-row-node {
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .champ-profile-meta { display: flex; align-items: center; gap: 0.75rem; }
+        .champ-name-meta h5 { font-family: var(--font-sub); font-size: 0.85rem; }
+        .champ-name-meta span { font-size: 0.7rem; color: var(--muted); }
+        .champ-stat-badge { font-family: var(--font-mono); font-size: 0.75rem; color: var(--yellow); font-weight: bold; }
+
+        /* Events modules cards design */
+        .event-glass-node {
+            background: rgba(0, 206, 209, 0.01); border: 1px solid rgba(0, 206, 209, 0.1);
+            padding: 1rem; border-radius: var(--radius-md); display: flex; flex-direction: column; gap: 0.5rem;
+        }
+        .event-glass-node h4 { font-family: var(--font-sub); font-size: 0.9rem; color: var(--white); }
+        .event-time-lbl { font-family: var(--font-mono); font-size: 0.7rem; color: var(--electric); }
+
+        /* --- BOTTOM SEGMENT ROWS: CIRCLES / GROUPS --- */
+        .skill-circles-section {
+            border-top: 1px solid var(--glass-border); padding-top: 4rem; margin-top: 2rem;
+        }
+        .circles-grid-layout {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem; margin-top: 2rem;
+        }
+        .circle-group-card {
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .circle-meta-left { display: flex; gap: 1rem; align-items: center; }
+        .circle-avatar-icon {
+            width: 44px; height: 44px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 1.25rem;
+        }
+        .circle-details h4 { font-family: var(--font-sub); font-size: 1rem; }
+        .circle-details span { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+        
+        .btn-join-circle.joined {
+            background: var(--teal) !important; border-color: var(--electric) !important; color: var(--white);
+        }
+
+        /* --- BOTTOM SEGMENT ROWS: LEADERBOARD MATRIX --- */
+        .leaderboard-section {
+            border-top: 1px solid var(--glass-border); padding: 4rem 0 6rem; margin-top: 4rem;
+        }
+        .leaderboard-table-panel {
+            background: rgba(255,255,255,0.01); border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg); overflow: hidden; margin-top: 2.5rem;
+            display: flex; flex-direction: column;
+        }
+        .leaderboard-row-node {
+            display: grid; grid-template-columns: 60px 1fr 1.5fr 1fr 1fr;
+            padding: 1.1rem 2rem; align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.5s var(--transition-smooth);
+        }
+        .leaderboard-row-node.visible { opacity: 1; transform: translateY(0); }
+        .leaderboard-row-node.table-header-row {
+            background: rgba(6, 18, 40, 0.4); border-bottom: 1px solid rgba(0, 206, 209, 0.15);
+            font-family: var(--font-sub); font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px;
+            opacity: 1 !important; transform: none !important;
+        }
+        .rank-number { font-family: var(--font-mono); font-weight: bold; font-size: 1.1rem; color: var(--muted); }
+        
+        /* Podium rank special glows layout overrides */
+        .leaderboard-row-node.rank-1st { background: rgba(244, 208, 63, 0.02); box-shadow: inset 0 0 15px rgba(244, 208, 63, 0.05); }
+        .leaderboard-row-node.rank-1st .rank-number { color: var(--yellow); text-shadow: 0 0 10px rgba(244, 208, 63, 0.4); }
+        .leaderboard-row-node.rank-2nd .rank-number { color: #E5E7E9; }
+        .leaderboard-row-node.rank-3rd .rank-number { color: #DC7633; }
+
+        .leaderboard-row-node .user-profile-meta { display: flex; align-items: center; gap: 1rem; }
+        .leaderboard-row-node .user-profile-meta h4 { font-family: var(--font-sub); font-size: 0.95rem; }
+        .leaderboard-row-node .skill-track-tags { font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+        .leaderboard-row-node .stat-count-val { font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600; }
+
+        /* --- MOBILE LAYOUT BREAKPOINTS RESPONSIVENESS --- */
+        @media (max-width: 1024px) {
+            .workspace-layout-grid { grid-template-columns: 1fr; }
+            .leaderboard-row-node { grid-template-columns: 50px 1fr 1fr; }
+            .leaderboard-row-node .skill-track-tags, .leaderboard-row-node .table-header-exchanges { display: none; }
+        }
+        @media (max-width: 640px) {
+            .navbar .nav-links { display: none; }
+            .leaderboard-row-node { grid-template-columns: 40px 1fr; }
+            .leaderboard-row-node .table-header-credits, .leaderboard-row-node .stat-credits-cell { display: none; }
+            .post-footer-metrics-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+            .post-footer-metrics-bar button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="custom-cursor"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo-block" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                <svg width="36" height="36" viewBox="0 0 100 100" fill="none" style="margin-right: 10px;">
+                    <path d="M25,75 C25,50 45,55 50,55" stroke="#00CED1" stroke-width="11" stroke-linecap="round" />
+                    <path d="M75,75 C75,50 55,55 50,55" stroke="#1B3A6B" stroke-width="11" stroke-linecap="round" />
+                    <path d="M25,75 C35,60 65,60 75,75" stroke="var(--teal)" stroke-width="5" stroke-linecap="round" fill="none" />
+                    <circle cx="25" cy="32" r="8" fill="#1B3A6B" /><circle cx="75" cy="32" r="8" fill="#00CED1" />
+                </svg>
+                <div style="display: flex; flex-direction: column;">
+                    <span style="font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; line-height: 1;"><span style="color: #ffffff;">Skill</span><span style="color: #00CED1;">Bridge</span></span>
+                    <span style="font-family: var(--font-sub); font-size: 7px; letter-spacing: 1px; color: var(--muted); margin-top: 2px; font-weight: bold;">BY THE PEOPLE, FOR THE PEOPLE</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#">Home</a>
+                <a href="#">Explore Skills</a>
+                <a href="#">Find Mentors</a>
+                <a href="#" class="active">Community</a>
+                <a href="#">Resources</a>
+            </div>
+            <div class="nav-auth">
+                <div class="avatar-circle" style="border-color: var(--electric); cursor:pointer;">AR</div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="community-hero aurora-bg">
+        <div class="container">
+            <h1>The SkillBridge Community</h1>
+            <p style="color: rgba(255,255,255,0.7); max-width: 500px; margin: 0 auto 0.5rem;">10,000+ people growing together, trading educational capital natively with zero cash fees.</p>
+            <div class="live-counter-box">
+                <div class="blinking-dot"></div>
+                <span>143 global network peers active right now</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container workspace-layout-grid">
+        
+        <section class="community-feed-stack">
+            
+            <div class="glass-card post-composer-card" id="post-composer-widget">
+                <div class="composer-top-row">
+                    <div class="avatar-circle">AH</div>
+                    <textarea class="composer-textarea" placeholder="Share something with the community node network..." onfocus="expandComposerWidgetBlock()" id="composer-text-field"></textarea>
+                </div>
+                
+                <div class="composer-hidden-options">
+                    <div class="composer-tags-input-box">
+                        <span style="font-size:0.75rem; color:var(--electric); font-family:var(--font-mono); margin-right:5px;">#</span>
+                        <input type="text" placeholder="Relate specific skill tags (e.g. WebDev, Figma)..." aria-label="Post Related Tags input">
+                    </div>
+                    <div class="composer-actions-row">
+                        <div class="composer-tools-piles">
+                            <button class="btn-ghost" style="padding: 0.4rem 0.85rem; font-size: 0.75rem;" onclick="alert('File attachment buffer pipelines initialized.')">📎 Attach Node</button>
+                            <button class="btn-ghost" style="padding: 0.4rem 0.85rem; font-size: 0.75rem; border-color: var(--glass-border);" onclick="alert('Exchange structure schema overlays appended.')">🤝 Exchange Offer</button>
+                        </div>
+                        <button class="btn-liquid" style="padding: 0.4rem 1.25rem;" onclick="dispatchCustomUserPostBlock()">Publish Post Node</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="feed-posts-stream-root" style="display:flex; flex-direction:column; gap:1.75rem;">
+                
+                <div class="glass-card feed-post-item-card">
+                    <div class="post-header-meta">
+                        <div class="post-author-block">
+                            <div class="avatar-circle" style="background: linear-gradient(135deg, #1B3A6B, #0D7377);">HJ</div>
+                            <div class="author-name-title">
+                                <h4>Hadeed Jalani</h4>
+                                <span>@hadeed_dev · 42m ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-body-text">
+                        Just completed my 10th React session! Teaching really cements your knowledge parameters 🚀 Earned 200 credits this month alone. Network orchestration is highly fluid. <span style="color:var(--electric);">#WebDev #SkillBridge</span>
+                    </div>
+                    <div class="post-footer-metrics-bar">
+                        <div class="post-interactive-triggers">
+                            <div class="trigger-action-node heart-node" onclick="handleHeartTriggerToggle(this)"><svg class="heart-svg-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="count">34</span></div>
+                            <div class="trigger-action-node">💬 12 comments</div>
+                            <div class="trigger-action-node">➔ Share</div>
+                        </div>
+                        <button class="btn-liquid" style="padding:0.4rem 1rem;" onclick="alert('Initiating automated pairing request for WebDev track.')">Bridge Skills with them?</button>
+                    </div>
+                </div>
+
+                <div class="glass-card feed-post-item-card">
+                    <div class="post-header-meta">
+                        <div class="post-author-block">
+                            <div class="avatar-circle" style="background: linear-gradient(135deg, #717D7E, #1B3A6B);">AR</div>
+                            <div class="author-name-title">
+                                <h4>Asnah Raouf</h4>
+                                <span>@asnah_ux · 2h ago</span>
+                            </div>
+                        </div>
+                        <div class="post-special-badge">Skill Exchange Offer</div>
+                    </div>
+                    <div class="post-body-text">
+                        Looking for someone to exchange: I teach Figma component layout architecture/UI Design for native structural Arabic language conversation lessons. DM my vault node directly! 🤝 <span style="color:var(--electric);">#Figma #Languages</span>
+                    </div>
+                    <div class="post-footer-metrics-bar">
+                        <div class="post-interactive-triggers">
+                            <div class="trigger-action-node heart-node" onclick="handleHeartTriggerToggle(this)"><svg class="heart-svg-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="count">67</span></div>
+                            <div class="trigger-action-node">💬 23 comments</div>
+                            <div class="trigger-action-node">➔ Share</div>
+                        </div>
+                        <button class="btn-liquid" style="padding:0.4rem 1rem;" onclick="alert('Asymmetric DM pipeline established.')">Respond to Offer</button>
+                    </div>
+                </div>
+
+                <div class="glass-card feed-post-item-card">
+                    <div class="post-header-meta">
+                        <div class="post-author-block">
+                            <div class="avatar-circle" style="background: linear-gradient(135deg, #0D7377, #F4D03F);">HC</div>
+                            <div class="author-name-title">
+                                <h4>Haseeb Chatha</h4>
+                                <span>@haseeb_code · 5h ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-body-text">
+                        Week 3 of learning Python metrics with my SkillBridge partner. Progress update report: Built my first operational asynchronous API node today 🐍 System structure attached.
+                        
+                        <div class="embedded-post-asset-container">
+                            <div style="font-family:var(--font-mono); font-size:0.7rem; color:var(--electric); text-transform:uppercase; margin-bottom:0.5rem;">Verified Node Attainment</div>
+                            <h5 style="font-family:var(--font-sub); font-size:0.9rem; margin-bottom:0.25rem;">Python API Track Mastery</h5>
+                            <div style="width:100%; height:4px; background:rgba(255,255,255,0.05); border-radius:var(--radius-pill); overflow:hidden;">
+                                <div style="width:65%; height:100%; background:var(--teal);"></div>
+                            </div>
+                            <div style="display:flex; justify-content:space-between; font-size:0.7rem; margin-top:0.35rem; color:var(--muted)"><span>Progress Level: Intermediate</span><span>65% Vetted</span></div>
+                        </div>
+                    </div>
+                    <div class="post-footer-metrics-bar">
+                        <div class="post-interactive-triggers">
+                            <div class="trigger-action-node heart-node" onclick="handleHeartTriggerToggle(this)"><svg class="heart-svg-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="count">91</span></div>
+                            <div class="trigger-action-node">💬 31 comments</div>
+                            <div class="trigger-action-node">➔ Share</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card feed-post-item-card">
+                    <div class="post-header-meta">
+                        <div class="post-author-block">
+                            <div class="avatar-circle" style="background: var(--navy);">ZM</div>
+                            <div class="author-name-title">
+                                <h4>Zainab Malik</h4>
+                                <span>@zainab_ml · 1d ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-body-text" style="display:flex; align-items:flex-start; gap:1.25rem;">
+                        <div class="post-inline-badge-box">🏆</div>
+                        <div>
+                            Just unlocked <strong style="color:var(--yellow)">'Trusted Teacher'</strong> tier badge component matrix! 100 complete validation sessions processed. Thank you to every learning node who trusted my curriculum tracks.
+                        </div>
+                    </div>
+                    <div class="post-footer-metrics-bar">
+                        <div class="post-interactive-triggers">
+                            <div class="trigger-action-node heart-node" onclick="handleHeartTriggerToggle(this)"><svg class="heart-svg-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="count">124</span></div>
+                            <div class="trigger-action-node">💬 45 comments</div>
+                            <div class="trigger-action-node">➔ Share</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-card feed-post-item-card">
+                    <div class="post-header-meta">
+                        <div class="post-author-block">
+                            <div class="avatar-circle" style="background: var(--teal);">AM</div>
+                            <div class="author-name-title">
+                                <h4>Ali Murtaza</h4>
+                                <span>@ali_scale · 2d ago</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="post-body-text" id="long-post-content-node">
+                        Honest evaluation review of my SkillBridge experience structural parameters after 6 months of continuous active tracking node testing inside the architecture ecosystem...
+                        <p class="hidden-post-content" id="long-post-hidden-paragraph">
+                            Initially, I was highly skeptical about non-monetary transactional environments due to the inherent risk of bluffing declarations. However, the system's Pre-Session Validation Quiz matrix filter mitigates competency variances entirely. I have acquired complete Next.js performance auditing mechanics without deploying capital parameters. This is education completely decentralized.
+                        </p>
+                        <span class="read-more-toggle-link" onclick="expandLongFormPostContent(this)">Read complete narrative ↓</span>
+                    </div>
+                    <div class="post-footer-metrics-bar">
+                        <div class="post-interactive-triggers">
+                            <div class="trigger-action-node heart-node" onclick="handleHeartTriggerToggle(this)"><svg class="heart-svg-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="count">203</span></div>
+                            <div class="trigger-action-node">💬 67 comments</div>
+                            <div class="trigger-action-node">➔ Share</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <aside class="right-sidebar-stack">
+            
+            <div class="glass-card sidebar-widget-box">
+                <h3>Trending Cluster Tags</h3>
+                <div class="trending-list-stack">
+                    <div class="trending-tag-row-item"><span class="trending-tag-lbl">#NextJS_15</span><span class="trending-growth-metric">+44.2%</span></div>
+                    <div class="trending-tag-row-item"><span class="trending-tag-lbl">#Figma_Variables</span><span class="trending-growth-metric">+31.8%</span></div>
+                    <div class="trending-tag-row-item"><span class="trending-tag-lbl">#cuML_GPU</span><span class="trending-growth-metric">+28.5%</span></div>
+                    <div class="trending-tag-row-item"><span class="trending-tag-lbl">#SEO_CoreVitals</span><span class="trending-growth-metric">+19.1%</span></div>
+                    <div class="trending-tag-row-item"><span class="trending-tag-lbl">#Agile_ScrumLogs</span><span class="trending-growth-metric">+12.4%</span></div>
+                </div>
+            </div>
+
+            <div class="glass-card sidebar-widget-box">
+                <h3>Active Marketplace Offers</h3>
+                <div class="active-offers-stack">
+                    <div class="offer-row-card">
+                        <h5>Python Scripting for UI/UX</h5>
+                        <p>Node leader requires interface system mapping advice.</p>
+                    </div>
+                    <div class="offer-row-card">
+                        <h5>Mandarin Fluency vs ML</h5>
+                        <p>Exchange deep learning structures for language translation sets.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card sidebar-widget-box">
+                <h3>Community Champions</h3>
+                <div class="champions-list-stack">
+                    <div class="champion-row-node">
+                        <div class="champ-profile-meta">
+                            <div class="avatar-circle" style="width:28px; height:28px; font-size:0.7rem;">AR</div>
+                            <div class="champ-name-meta"><h5>Asim Riaz</h5><span>142 loops</span></div>
+                        </div>
+                        <span class="champ-stat-badge">₠ 4.9K</span>
+                    </div>
+                    <div class="champion-row-node">
+                        <div class="champ-profile-meta">
+                            <div class="avatar-circle" style="width:28px; height:28px; font-size:0.7rem; background:var(--teal);">FL</div>
+                            <div class="champ-name-meta"><h5>Fatima Lodhi</h5><span>118 loops</span></div>
+                        </div>
+                        <span class="champ-stat-badge">₠ 3.8K</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card sidebar-widget-box">
+                <h3>Upcoming Cluster Webinars</h3>
+                <div class="events-cards-stack">
+                    <div class="event-glass-node">
+                        <h4>Figma Token System Architecture</h4>
+                        <span class="event-time-lbl">June 12, 2026 · 15:00 PST</span>
+                    </div>
+                    <div class="event-glass-node">
+                        <h4>Parallel GPU Clustering for Interns</h4>
+                        <span class="event-time-lbl">June 19, 2026 · 18:00 PST</span>
+                    </div>
+                </div>
+            </div>
+
+        </aside>
+    </main>
+
+    <section class="container skill-circles-section">
+        <h2 style="font-family: var(--font-display); font-size: 1.75rem;">Explore Specialized Skill Circles</h2>
+        <p style="color: var(--muted); margin-top: 0.25rem;">Cluster groups aligned by specific technical tracking nodes.</p>
+        
+        <div class="circles-grid-layout">
+            <div class="glass-card circle-group-card">
+                <div class="circle-meta-left">
+                    <div class="circle-avatar-icon">💻</div>
+                    <div class="circle-details"><h4>Web Developers PK</h4><span class="member-count" data-count="1200">1,200 members</span></div>
+                </div>
+                <button class="btn-liquid btn-join-circle" onclick="toggleCircleMembership(this)">Join Circle</button>
+            </div>
+            <div class="glass-card circle-group-card">
+                <div class="circle-meta-left">
+                    <div class="circle-avatar-icon">🎨</div>
+                    <div class="circle-details"><h4>Design Collective</h4><span class="member-count" data-count="890">890 members</span></div>
+                </div>
+                <button class="btn-liquid btn-join-circle" onclick="toggleCircleMembership(this)">Join Circle</button>
+            </div>
+            <div class="glass-card circle-group-card">
+                <div class="circle-meta-left">
+                    <div class="circle-avatar-icon">🤖</div>
+                    <div class="circle-details"><h4>AI & ML Hub</h4><span class="member-count" data-count="670">670 members</span></div>
+                </div>
+                <button class="btn-liquid btn-join-circle" onclick="toggleCircleMembership(this)">Join Circle</button>
+            </div>
+            <div class="glass-card circle-group-card">
+                <div class="circle-meta-left">
+                    <div class="circle-avatar-icon">🎙️</div>
+                    <div class="circle-details"><h4>Public Speakers United</h4><span class="member-count" data-count="430">430 members</span></div>
+                </div>
+                <button class="btn-liquid btn-join-circle" onclick="toggleCircleMembership(this)">Join Circle</button>
+            </div>
+            <div class="glass-card circle-group-card">
+                <div class="circle-meta-left">
+                    <div class="circle-avatar-icon">🪙</div>
+                    <div class="circle-details"><h4>Finance Nerds</h4><span class="member-count" data-count="380">380 members</span></div>
+                </div>
+                <button class="btn-liquid btn-join-circle" onclick="toggleCircleMembership(this)">Join Circle</button>
+            </div>
+            <div class="glass-card circle-group-card">
+                <div class="circle-meta-left">
+                    <div class="circle-avatar-icon">🌟</div>
+                    <div class="circle-details"><h4>Creative Exchange</h4><span class="member-count" data-count="560">560 members</span></div>
+                </div>
+                <button class="btn-liquid btn-join-circle" onclick="toggleCircleMembership(this)">Join Circle</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="container leaderboard-section">
+        <h2 style="font-family: var(--font-display); font-size: 1.75rem; text-align: center;">This Month's Top Exchangers</h2>
+        <p style="color: var(--muted); text-align: center; margin-top: 0.25rem;">Vetted node records tracking supreme value allocation outputs.</p>
+
+        <div class="leaderboard-table-panel" id="leaderboard-panel-root">
+            <div class="leaderboard-row-node table-header-row">
+                <span>Rank</span><span>Identity Node</span><span class="table-header-exchanges">Primary Skill Domain</span><span class="table-header-exchanges">Loops</span><span class="table-header-credits">Balance</span>
+            </div>
+            
+            <div class="leaderboard-row-node rank-1st">
+                <span class="rank-number">1st</span>
+                <div class="user-profile-meta"><div class="avatar-circle" style="background:#F4D03F; color:#061228;">AR</div><h4>Asim Riaz</h4></div>
+                <span class="skill-track-tags">Full-Stack Cloud Core</span><span class="stat-count-val">42</span><span class="stat-count-val" style="color:var(--yellow)">₠ 4,950</span>
+            </div>
+            <div class="leaderboard-row-node rank-2nd">
+                <span class="rank-number">2nd</span>
+                <div class="user-profile-meta"><div class="avatar-circle">FL</div><h4>Fatima Lodhi</h4></div>
+                <span class="skill-track-tags">Figma Design Systems</span><span class="stat-count-val">38</span><span class="stat-count-val" style="color:var(--electric)">₠ 3,800</span>
+            </div>
+            <div class="leaderboard-row-node rank-3rd">
+                <span class="rank-number">3rd</span>
+                <div class="user-profile-meta"><div class="avatar-circle">UM</div><h4>Usman Malik</h4></div>
+                <span class="skill-track-tags">GPU Acceleration Models</span><span class="stat-count-val">35</span><span class="stat-count-val" style="color:var(--electric)">₠ 3,120</span>
+            </div>
+            <div class="leaderboard-row-node">
+                <span class="rank-number">4th</span>
+                <div class="user-profile-meta"><div class="avatar-circle">ZK</div><h4>Zainab Khan</h4></div>
+                <span class="skill-track-tags">SEO / Growth Architect</span><span class="stat-count-val">31</span><span class="stat-count-val">₠ 2,900</span>
+            </div>
+            <div class="leaderboard-row-node">
+                <span class="rank-number">5th</span>
+                <div class="user-profile-meta"><div class="avatar-circle">AA</div><h4>Amna Ahmed</h4></div>
+                <span class="skill-track-tags">Mandarin Syntax Instruction</span><span class="stat-count-val">28</span><span class="stat-count-val">₠ 2,450</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeGlobalCursorTracking();
+            initializeLeaderboardIntersectionObserver();
+            initializeLiquidRipplePhysicsEffects();
+        });
+
+        /* --- GLOBAL CURSOR RENDERER ENGINE --- */
+        function initializeGlobalCursorTracking() {
+            const cursor = document.getElementById('custom-cursor');
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+            refreshInteractiveBindings();
+        }
+
+        function refreshInteractiveBindings() {
+            const cursor = document.getElementById('custom-cursor');
+            document.querySelectorAll('a, button, textarea, input, .trigger-action-node, .read-more-toggle-link, .glass-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+        }
+
+        /* --- LIQUID GLASS MOUSEMOVE RIPPLE SHIFTS --- */
+        function initializeLiquidRipplePhysicsEffects() {
+            document.querySelectorAll('.btn-liquid').forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    btn.style.setProperty('--ripple-x', `${x}%`);
+                    btn.style.setProperty('--ripple-y', `${y}%`);
+                });
+            });
+        }
+
+        /* --- COMPOSER PANEL EXPAND EXPANSIONS --- */
+        function expandComposerWidgetBlock() {
+            document.getElementById('post-composer-widget').classList.add('expanded');
+        }
+
+        function dispatchCustomUserPostBlock() {
+            const field = document.getElementById('composer-text-field');
+            const userContent = field.value.trim();
+            if (!userContent) return;
+
+            const targetStream = document.getElementById('feed-posts-stream-root');
+            const postCard = document.createElement('div');
+            postCard.className = 'glass-card feed-post-item-card';
+            
+            postCard.innerHTML = `
+                <div class="post-header-meta">
+                    <div class="post-author-block">
+                        <div class="avatar-circle" style="border-color:var(--electric)">AR</div>
+                        <div class="author-name-title">
+                            <h4>Alex Rahman</h4>
+                            <span>@alex_rahman · Just now</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="post-body-text">${userContent}</div>
+                <div class="post-footer-metrics-bar">
+                    <div class="post-interactive-triggers">
+                        <div class="trigger-action-node heart-node" onclick="handleHeartTriggerToggle(this)"><svg class="heart-svg-icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><span class="count">0</span></div>
+                        <div class="trigger-action-node">💬 0 comments</div>
+                        <div class="trigger-action-node">➔ Share</div>
+                    </div>
+                </div>
+            `;
+
+            targetStream.insertBefore(postCard, targetStream.firstChild);
+            field.value = '';
+            document.getElementById('post-composer-widget').classList.remove('expanded');
+            refreshInteractiveBindings();
+        }
+
+        /* --- POST METRIC INTERACTIONS (HEART LIKE TRANSITIONS) --- */
+        function handleHeartTriggerToggle(element) {
+            const countNode = element.querySelector('.count');
+            let currentVal = parseInt(countNode.innerText);
+
+            if (element.classList.contains('liked')) {
+                element.classList.remove('liked');
+                countNode.innerText = currentVal - 1;
+            } else {
+                element.classList.add('liked');
+                countNode.innerText = currentVal + 1;
+            }
+        }
+
+        /* --- LONG FORM POST COMPRESSION EXPANSIONS --- */
+        function expandLongFormPostContent(linkElement) {
+            const hiddenPara = document.getElementById('long-post-hidden-paragraph');
+            if (hiddenPara.style.display === 'block') {
+                hiddenPara.style.display = 'none';
+                linkElement.innerText = 'Read complete narrative ↓';
+            } else {
+                hiddenPara.style.display = 'block';
+                linkElement.innerText = 'Collapse post text ↑';
+            }
+        }
+
+        /* --- SKILL CIRCLE MEMBERSHIP STATE INTERCHANGES --- */
+        function toggleCircleMembership(btnElement) {
+            const countLabel = btnElement.parentElement.querySelector('.member-count');
+            let baseCount = parseInt(countLabel.getAttribute('data-count'));
+
+            if (btnElement.classList.contains('joined')) {
+                btnElement.classList.remove('joined');
+                btnElement.innerText = 'Join Circle';
+                countLabel.innerText = `${baseCount.toLocaleString()} members`;
+            } else {
+                btnElement.classList.add('joined');
+                btnElement.innerText = '✓ Joined';
+                let extendedCount = baseCount + 1;
+                countLabel.innerText = `${extendedCount.toLocaleString()} members`;
+            }
+        }
+
+        /* --- LEADERBOARD SCROLL STAGGERED REVEALS --- */
+        function initializeLeaderboardIntersectionObserver() {
+            const options = { threshold: 0.1, rootMargin: "0px 0px -40px 0px" };
+            
+            const tableObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const rows = entry.target.querySelectorAll('.leaderboard-row-node:not(.table-header-row)');
+                        rows.forEach((row, index) => {
+                            setTimeout(() => {
+                                row.classList.add('visible');
+                            }, index * 80); // Sequenced index pipeline cascades delays
+                        });
+                        tableObserver.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            const tablePanel = document.getElementById('leaderboard-panel-root');
+            if (tablePanel) tableObserver.observe(tablePanel);
+        }
+    </script>
+</body>
+</html>
